@@ -502,6 +502,8 @@
             justify-content: center;
             cursor: pointer;
             transition: background 0.3s ease;
+            position: relative;
+            z-index: 100;
         }
         
         .close-btn:hover {
@@ -1032,7 +1034,12 @@
             
             // Function to show a specific card
             function showCard(id) {
-                hideAllCards();
+                // Hide any open cards first
+                cardContainers.forEach(container => {
+                    container.classList.remove('visible');
+                });
+                
+                // Show the requested card
                 const cardContainer = document.getElementById(id + '-card');
                 if (cardContainer) {
                     // Make the container visible
@@ -1477,12 +1484,12 @@
     <!-- Voice Card -->
     <div class="card-container" id="voice-card">
         <div class="card">
+            <a class="close-card-link" onclick="document.getElementById('voice-card').classList.remove('visible');">×</a>
             <div class="card-header">
                 <div class="card-title">
                     <h2>Reaching for Help</h2>
                     <div class="system-badge airwave">Legacy Airwave</div>
                 </div>
-                <div class="close-btn"></div>
             </div>
             <div class="card-content">
                 <div class="info-section system-details">
@@ -1549,12 +1556,12 @@
     <!-- Coverage Card -->
     <div class="card-container" id="coverage-card">
         <div class="card">
+            <a class="close-card-link" onclick="document.getElementById('coverage-card').classList.remove('visible');">×</a>
             <div class="card-header">
                 <div class="card-title">
                     <h2>Signal Lost</h2>
                     <div class="system-badge airwave">Legacy Airwave</div>
                 </div>
-                <div class="close-btn"></div>
             </div>
             <div class="card-content">
                 <div class="info-section system-details">

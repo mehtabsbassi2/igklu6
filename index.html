@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <div class="ambulance" id="flying-ambulance">
-        <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
             <!-- Ambulance Body -->
             <rect x="10" y="30" width="80" height="25" rx="5" fill="#ffffff" />
             <!-- Cab -->
@@ -21,6 +21,13 @@
             <rect x="20" y="15" width="12" height="5" rx="2" fill="#a0a0a0" />
             <circle cx="24" cy="17" r="2" class="ambulance-light" />
             <circle cx="28" cy="17" r="2" class="ambulance-light" />
+            
+            <!-- Rocket Engine Flame -->
+            <g class="rocket-flame">
+                <path d="M0,42 Q5,45 0,48 L-15,45 Z" fill="#ff9900" class="outer-flame" />
+                <path d="M0,43 Q3,45 0,47 L-10,45 Z" fill="#ffdd00" class="inner-flame" />
+                <path d="M0,44 Q1,45 0,46 L-5,45 Z" fill="#ffffff" class="core-flame" />
+            </g>
         </svg>
     </div><meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -87,6 +94,15 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+        
+        .ibm-logo {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-weight: bold;
+            font-size: 48px;
+            color: #0062ff;
+            margin-right: 30px;
+            letter-spacing: -1px;
         }
         
         .esn-dots {
@@ -337,7 +353,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-100px);
-            width: 100px;
+            width: 120px;
             height: 60px;
             z-index: 15;
             opacity: 0;
@@ -361,6 +377,32 @@
         
         .ambulance-light {
             animation: ambulanceLight 0.5s infinite;
+        }
+        
+        /* Rocket flame animations */
+        @keyframes flameFlicker {
+            0% { opacity: 0.7; transform: scale(0.9, 1); }
+            25% { opacity: 0.8; transform: scale(1, 0.9); }
+            50% { opacity: 1; transform: scale(0.8, 1.1); }
+            75% { opacity: 0.9; transform: scale(1.1, 0.8); }
+            100% { opacity: 0.7; transform: scale(0.9, 1); }
+        }
+        
+        .rocket-flame {
+            transform-origin: 0 45px;
+            animation: flameFlicker 0.3s infinite;
+        }
+        
+        .outer-flame {
+            opacity: 0.7;
+        }
+        
+        .inner-flame {
+            opacity: 0.9;
+        }
+        
+        .core-flame {
+            opacity: 1;
         }
         
         /* Cards */
@@ -668,6 +710,7 @@
     <!-- Header with logos and title -->
     <header class="esn-header">
         <div class="logo-container">
+            <div class="ibm-logo">IBM</div>
             <div class="esn-logo">
                 <div>ESN</div>
                 <div class="esn-dots">

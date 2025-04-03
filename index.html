@@ -54,6 +54,9 @@
             font-family: 'Segoe UI', Arial, sans-serif;
         }
         
+        /* Import a more fun, readable font */
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+        
         body {
             color: var(--text-light);
             overflow-x: scroll;
@@ -257,23 +260,26 @@
             position: absolute;
             left: 10%;
             top: -80px;
-            color: var(--text-light);
+            color: var(--primary-color);
             font-weight: bold;
             font-size: 40px;
-            opacity: 0.7;
+            opacity: 0.8;
             text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
         }
         
         .timeline::after {
             content: "NEW ESN SYSTEM";
             position: absolute;
-            right: 10%;
+            left: 50%;
             top: -80px;
-            color: var(--primary-color);
+            color: var(--text-light);
             font-weight: bold;
             font-size: 40px;
-            opacity: 0.7;
+            opacity: 0.8;
             text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            transform: translateX(20px);
         }
         
         .divider {
@@ -639,7 +645,8 @@
             font-size: 24px;
         }
         
-        /* For demo - scrolling controls */
+        /* For demo - scrolling controls - removed as requested */
+        /* 
         .demo-controls {
             position: fixed;
             bottom: 20px;
@@ -672,6 +679,7 @@
             display: flex;
             align-items: center;
         }
+        */
 
         /* Animations */
         @keyframes fadeIn {
@@ -739,15 +747,8 @@
     </style>
 </head>
 <body>
-    <!-- Demo navigation controls for standard browsers -->
-    <div class="demo-controls">
-        <button class="demo-button" id="scroll-left-fast">◄◄ Fast</button>
-        <button class="demo-button" id="scroll-left">◄ Left</button>
-        <span class="scroll-position">Position: <span id="scroll-percent">0</span>%</span>
-        <button class="demo-button" id="scroll-right">Right ►</button>
-        <button class="demo-button" id="scroll-right-fast">Fast ►►</button>
-    </div>
-
+    <!-- Navigation controls removed as requested -->
+    
     <!-- Header with logos and title -->
     <header class="esn-header">
         <div class="header-top-row">
@@ -927,7 +928,8 @@
             const cardContainers = document.querySelectorAll('.card-container');
             const closeButtons = document.querySelectorAll('.close-btn');
             
-            // Demo controls
+            // Demo controls - removed as requested
+            /*
             const scrollLeftFast = document.getElementById('scroll-left-fast');
             const scrollLeft = document.getElementById('scroll-left');
             const scrollRight = document.getElementById('scroll-right');
@@ -963,6 +965,7 @@
             
             // Initial update
             updateScrollPercent();
+            */
             
             // Function to hide all cards
             function hideAllCards() {

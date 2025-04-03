@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Separate flames and ambulance elements -->
-    <div id="rocket-flames" class="rocket-flames">
-        <svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,0 L50,10 L60,15 L50,20 L0,30 Z" fill="#ff6600" />
-            <path d="M0,5 L40,10 L45,15 L40,20 L0,25 Z" fill="#ff9900" />
-            <path d="M0,10 L30,12 L32,15 L30,18 L0,20 Z" fill="#ffcc00" />
-        </svg>
-    </div>
-    
+    <!-- Just the ambulance with no separate flames -->
     <div class="ambulance" id="flying-ambulance">
+        <!-- Flame DIV using CSS -->
+        <div class="flame-element"></div>
+        
         <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
             <!-- Ambulance Body -->
             <rect x="10" y="30" width="80" height="25" rx="5" fill="#ffffff" />
@@ -1463,15 +1458,8 @@
                 // Make the ambulance visible
                 ambulance.classList.add('active');
                 
-                // Make flames visible
-                const flames = document.getElementById('rocket-flames');
-                flames.classList.add('active');
-                
                 // Position the ambulance at the starting point
                 ambulance.style.left = `${startX}px`;
-                
-                // Position flames behind ambulance
-                flames.style.left = `${startX - 60}px`;
                 
                 // Determine direction
                 const goingRight = endX > startX;
@@ -1479,31 +1467,26 @@
                 // Flip the ambulance if it's going left
                 if (!goingRight) {
                     ambulance.style.transform = 'translateY(-100px) scaleX(-1)';
-                    flames.style.transform = 'translateY(-65px) scaleX(-1)';
+                    ambulance.classList.add('flipped');
                 } else {
                     ambulance.style.transform = 'translateY(-100px)';
-                    flames.style.transform = 'translateY(-65px)';
+                    ambulance.classList.remove('flipped');
                 }
                 
                 // Calculate animation duration based on distance
                 const distance = Math.abs(endX - startX);
                 const duration = Math.min(Math.max(distance / 500, 2), 10); // Between 2 and 10 seconds
                 
-                // Animate ambulance
+                // Animate
                 ambulance.style.transition = `left ${duration}s ease, opacity 0.5s ease`;
-                
-                // Animate flames with same duration
-                flames.style.transition = `left ${duration}s ease, opacity 0.5s ease`;
                 
                 // Start the animation after a short delay
                 setTimeout(() => {
                     ambulance.style.left = `${endX}px`;
-                    flames.style.left = `${endX - 60}px`;
                     
-                    // Hide the ambulance and flames after the animation is complete
+                    // Hide the ambulance after the animation is complete
                     setTimeout(() => {
                         ambulance.classList.remove('active');
-                        flames.classList.remove('active');
                     }, duration * 1000);
                 }, 100);
             }

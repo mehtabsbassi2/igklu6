@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Separate flames and ambulance elements -->
-    <div id="rocket-flames" class="rocket-flames">
-        <svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,0 L50,10 L60,15 L50,20 L0,30 Z" fill="#ff6600" />
-            <path d="M0,5 L40,10 L45,15 L40,20 L0,25 Z" fill="#ff9900" />
-            <path d="M0,10 L30,12 L32,15 L30,18 L0,20 Z" fill="#ffcc00" />
-        </svg>
-    </div>
-    
+    <!-- Sound control button -->
+    <div class="sound-controls">
+        <button id="sound-toggle" class="sound-toggle">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+            </svg>
+        </button>
+    </div><!-- Just the ambulance with no flames -->
     <div class="ambulance" id="flying-ambulance">
         <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
             <!-- Ambulance Body -->
@@ -72,8 +73,7 @@
         /* Header */
         .esn-header {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
             padding: 20px 40px;
             background: rgba(0, 0, 0, 0.5);
             position: absolute;
@@ -81,6 +81,13 @@
             left: 0;
             width: 100%;
             z-index: 100;
+        }
+        
+        .header-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
         }
         
         .logo-container {
@@ -693,6 +700,42 @@
         .slide-in-left {
             animation: slideInLeft 0.5s ease forwards;
         }
+        
+        /* Team Members - Horizontal Bar Solution */
+        .team-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+        
+        .team-member {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 70px;
+        }
+        
+        .member-avatar {
+            width: 45px;
+            height: 45px;
+            margin-bottom: 5px;
+        }
+        
+        .member-avatar svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .name {
+            font-size: 12px;
+            text-align: center;
+            color: var(--text-light);
+        }
     </style>
 </head>
 <body>
@@ -707,31 +750,97 @@
 
     <!-- Header with logos and title -->
     <header class="esn-header">
-        <div class="logo-container">
-            <div class="ibm-logo">IBM</div>
-            <div class="esn-logo">
-                <div>ESN</div>
-                <div class="esn-dots">
-                    <div class="esn-dot outline"></div>
-                    <div class="esn-dot filled"></div>
-                    <div class="esn-dot outline"></div>
+        <div class="header-top-row">
+            <div class="logo-container">
+                <div class="ibm-logo">IBM</div>
+                <div class="esn-logo">
+                    <div>ESN</div>
+                    <div class="esn-dots">
+                        <div class="esn-dot outline"></div>
+                        <div class="esn-dot filled"></div>
+                        <div class="esn-dot outline"></div>
+                    </div>
+                    <div class="esn-name">Emergency<br>Services Network</div>
                 </div>
-                <div class="esn-name">Emergency<br>Services Network</div>
+                <div class="synergy-logo">
+                    <div class="synergy-circle synergy-black"></div>
+                    <div class="synergy-circle synergy-green"></div>
+                    <div class="synergy-circle synergy-blue"></div>
+                    <div class="synergy-circle synergy-purple"></div>
+                </div>
             </div>
-            <div class="synergy-logo">
-                <div class="synergy-circle synergy-black"></div>
-                <div class="synergy-circle synergy-green"></div>
-                <div class="synergy-circle synergy-blue"></div>
-                <div class="synergy-circle synergy-purple"></div>
+            
+            <div class="title-container">
+                <h1>The Evolution of Emergency Communications</h1>
+                <p class="subtitle">From Airwave to ESN: Transforming First Responder Technology</p>
             </div>
         </div>
         
-        <div class="title-container">
-            <h1>The Evolution of Emergency Communications</h1>
-            <p class="subtitle">From Airwave to ESN: Transforming First Responder Technology</p>
+        <!-- Team Members Horizontal Bar -->
+        <div class="team-bar">
+            <div class="team-member">
+                <div class="member-avatar">
+                    <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="18" fill="#3498db" />
+                        <circle cx="20" cy="15" r="7" fill="#f5f5f5" />
+                        <path d="M8,34 C8,24 32,24 32,34" fill="#f5f5f5" />
+                    </svg>
+                </div>
+                <div class="name">Jake</div>
+            </div>
+            <div class="team-member">
+                <div class="member-avatar">
+                    <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="18" fill="#e74c3c" />
+                        <circle cx="20" cy="15" r="7" fill="#f5f5f5" />
+                        <path d="M8,34 C8,24 32,24 32,34" fill="#f5f5f5" />
+                    </svg>
+                </div>
+                <div class="name">Hamdan</div>
+            </div>
+            <div class="team-member">
+                <div class="member-avatar">
+                    <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="18" fill="#2ecc71" />
+                        <circle cx="20" cy="15" r="7" fill="#f5f5f5" />
+                        <path d="M8,34 C8,24 32,24 32,34" fill="#f5f5f5" />
+                    </svg>
+                </div>
+                <div class="name">Mehtab</div>
+            </div>
+            <div class="team-member">
+                <div class="member-avatar">
+                    <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="18" fill="#f39c12" />
+                        <circle cx="20" cy="15" r="7" fill="#f5f5f5" />
+                        <path d="M8,34 C8,24 32,24 32,34" fill="#f5f5f5" />
+                    </svg>
+                </div>
+                <div class="name">Hamse</div>
+            </div>
+            <div class="team-member">
+                <div class="member-avatar">
+                    <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="18" fill="#9b59b6" />
+                        <circle cx="20" cy="15" r="7" fill="#f5f5f5" />
+                        <path d="M8,34 C8,24 32,24 32,34" fill="#f5f5f5" />
+                        <!-- Hair for girl icon -->
+                        <path d="M13,15 C13,8 27,8 27,15" stroke="#000" stroke-width="2" fill="none" />
+                    </svg>
+                </div>
+                <div class="name">Arshveer</div>
+            </div>
+            <div class="team-member">
+                <div class="member-avatar">
+                    <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="18" fill="#1abc9c" />
+                        <circle cx="20" cy="15" r="7" fill="#f5f5f5" />
+                        <path d="M8,34 C8,24 32,24 32,34" fill="#f5f5f5" />
+                    </svg>
+                </div>
+                <div class="name">Saad</div>
+            </div>
         </div>
-        
-        <div style="width: 200px;"></div> <!-- Spacer for alignment -->
     </header>
     
     <!-- Main timeline container -->
@@ -784,6 +893,577 @@
                 <div class="timeline-point new-process point-future" data-id="future">
                     <div class="point-icon">🚀</div>
                     <div class="point-label">Evolution Unleashed</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript for interactions -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Create stars for background
+            const starsContainer = document.getElementById('stars-container');
+            for (let i = 0; i < 500; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                
+                // Use viewport-relative positioning instead of absolute pixels
+                // This ensures stars appear across the entire visible area
+                // Random position across the entire width and height
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                
+                // Random size and opacity
+                const size = Math.random() * 3 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.opacity = Math.random() * 0.8 + 0.2;
+                
+                starsContainer.appendChild(star);
+            }
+            
+            // Get all timeline points and cards
+            const timelinePoints = document.querySelectorAll('.timeline-point');
+            const cardContainers = document.querySelectorAll('.card-container');
+            const closeButtons = document.querySelectorAll('.close-btn');
+            
+            // Demo controls
+            const scrollLeftFast = document.getElementById('scroll-left-fast');
+            const scrollLeft = document.getElementById('scroll-left');
+            const scrollRight = document.getElementById('scroll-right');
+            const scrollRightFast = document.getElementById('scroll-right-fast');
+            const scrollPercent = document.getElementById('scroll-percent');
+            
+            // Function to update scroll percentage
+            function updateScrollPercent() {
+                const maxScroll = document.body.scrollWidth - window.innerWidth;
+                const currentPercent = Math.round((window.scrollX / maxScroll) * 100);
+                scrollPercent.textContent = currentPercent;
+            }
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', updateScrollPercent);
+            
+            // Add click event listeners to demo controls
+            scrollLeftFast.addEventListener('click', () => {
+                window.scrollBy({ left: -2000, behavior: 'smooth' });
+            });
+            
+            scrollLeft.addEventListener('click', () => {
+                window.scrollBy({ left: -500, behavior: 'smooth' });
+            });
+            
+            scrollRight.addEventListener('click', () => {
+                window.scrollBy({ left: 500, behavior: 'smooth' });
+            });
+            
+            scrollRightFast.addEventListener('click', () => {
+                window.scrollBy({ left: 2000, behavior: 'smooth' });
+            });
+            
+            // Initial update
+            updateScrollPercent();
+            
+            // Function to hide all cards
+            function hideAllCards() {
+                cardContainers.forEach(container => {
+                    container.classList.remove('visible');
+                });
+            }
+            
+            // Point positions for each ID - hardcoded to match CSS
+            const pointPositions = {
+                'voice': 1000,
+                'coverage': 2200,
+                'interop': 3400,
+                'cost': 4600,
+                'data': 5400,
+                'resilience': 6800,
+                'collab': 8000,
+                'future': 9200
+            };
+            
+            // Variables to track the last clicked point
+            let lastClickedId = null;
+            let lastClickedPosition = null;
+            
+            // Get the ambulance element
+            const ambulance = document.getElementById('flying-ambulance');
+            
+            // Function to animate the ambulance between two points
+            function animateAmbulance(startX, endX) {
+                // Make the ambulance visible
+                ambulance.classList.add('active');
+                
+                // Position the ambulance at the starting point
+                ambulance.style.left = `${startX}px`;
+                
+                // Determine direction
+                const goingRight = endX > startX;
+                
+                // Flip the ambulance if it's going left
+                if (!goingRight) {
+                    ambulance.style.transform = 'translateY(-100px) scaleX(-1)';
+                } else {
+                    ambulance.style.transform = 'translateY(-100px)';
+                }
+                
+                // Calculate animation duration based on distance
+                const distance = Math.abs(endX - startX);
+                const duration = Math.min(Math.max(distance / 500, 2), 10); // Between 2 and 10 seconds
+                
+                // Animate
+                ambulance.style.transition = `left ${duration}s ease, opacity 0.5s ease`;
+                
+                // Start the animation after a short delay
+                setTimeout(() => {
+                    ambulance.style.left = `${endX}px`;
+                    
+                    // Hide the ambulance after the animation is complete
+                    setTimeout(() => {
+                        ambulance.classList.remove('active');
+                    }, duration * 1000);
+                }, 100);
+            }
+            
+            // Function to show a specific card
+            function showCard(id) {
+                hideAllCards();
+                const cardContainer = document.getElementById(id + '-card');
+                if (cardContainer) {
+                    // Make the container visible
+                    cardContainer.classList.add('visible');
+                    
+                    // Position the card relative to the clicked point
+                    const card = cardContainer.querySelector('.card');
+                    if (card) {
+                        // Get the position for this point
+                        const pointPosition = pointPositions[id];
+                        const cardWidth = 2500; // Width of the card
+                        
+                        // Calculate the left position to center the card on the timeline point
+                        let leftPosition = pointPosition - (cardWidth / 2);
+                        
+                        // Ensure card is not positioned too far to the left or right
+                        leftPosition = Math.max(500, leftPosition);
+                        leftPosition = Math.min(7000, leftPosition);
+                        
+                        // Set the position
+                        card.style.left = `${leftPosition}px`;
+                        card.style.top = '100px'; // Fixed vertical position
+                    }
+                }
+                
+                // If we have a previous point, animate the ambulance
+                if (lastClickedId !== null && lastClickedId !== id) {
+                    const startX = pointPositions[lastClickedId];
+                    const endX = pointPositions[id];
+                    
+                    // Animate the ambulance from the last point to the current one
+                    animateAmbulance(startX, endX);
+                }
+                
+                // Update the last clicked point
+                lastClickedId = id;
+            }
+            
+            // Add click event listeners to timeline points
+            timelinePoints.forEach(point => {
+                point.addEventListener('click', function() {
+                    const id = this.dataset.id;
+                    showCard(id);
+                });
+            });
+            
+            // Escape key to close cards
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    hideAllCards();
+                }
+            });
+            
+            // Arrow keys for navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowLeft') {
+                    window.scrollBy({ left: -500, behavior: 'smooth' });
+                } else if (e.key === 'ArrowRight') {
+                    window.scrollBy({ left: 500, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+            
+            // Add click event listeners to close buttons
+            closeButtons.forEach(button => {
+                button.addEventListener('click', hideAllCards);
+            });
+            
+            // Close card when clicking outside the card content
+            cardContainers.forEach(container => {
+                container.addEventListener('click', function(e) {
+                    if (e.target === this) {
+                        hideAllCards();
+                    }
+                });
+            });
+    
+    <!-- Resilience Card -->
+    <div class="card-container" id="resilience-card">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <h2>Always Connected</h2>
+                    <div class="system-badge esn">New ESN</div>
+                </div>
+                <div class="close-btn"></div>
+            </div>
+            <div class="card-content">
+                <div class="info-section system-details">
+                    <div class="section-title">
+                        <i>📊</i> System Capabilities
+                    </div>
+                    <p>ESN leverages commercial 4G networks enhanced with dedicated coverage solutions to provide comprehensive service even in challenging environments.</p>
+                    
+                    <div class="comparison-container">
+                        <div class="old-side">
+                            <div class="comparison-label">Airwave System</div>
+                            <div class="comparison-value">Fixed infrastructure with predetermined coverage areas and limited in-building penetration</div>
+                        </div>
+                        <div class="new-side">
+                            <div class="comparison-label">ESN Solution</div>
+                            <div class="comparison-value">Continuously expanding 4G/5G coverage, deployable mobile coverage units, enhanced building penetration, satellite backup options</div>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-tags">
+                        <div class="benefit-tag">Extended Reach</div>
+                        <div class="benefit-tag">Flexible Coverage</div>
+                        <div class="benefit-tag">Multiple Redundancies</div>
+                    </div>
+                    
+                    <div class="metrics-container">
+                        <div class="metric">
+                            <div class="metric-value">99%+</div>
+                            <div class="metric-label">Population Coverage</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">97%</div>
+                            <div class="metric-label">Geographic Coverage</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">Enhanced</div>
+                            <div class="metric-label">Indoor Penetration</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section user-journey">
+                    <div class="section-title">
+                        <i>👤</i> Alex's Experience
+                    </div>
+                    
+                    <div class="user-story">
+                        <p>Traveling to the accident site with ESN, Alex maintains consistent communication throughout the rural journey. The commercial network coverage has been enhanced with dedicated ESN sites in rural areas. Upon arriving at the remote farm, Alex discovers the incident is inside a large metal barn, but the ESN device automatically switches to a vehicle-mounted gateway that boosts the signal. Inside the barn, Alex maintains full contact with the control room, sharing regular updates about the patient without interruption. When the control room needs to share critical information about hazardous materials, the message gets through clearly.</p>
+                    </div>
+                    
+                    <div class="media-section">
+                        <div class="section-title">
+                            <i>🎬</i> Experience Visualization
+                        </div>
+                        <div class="media-placeholder">
+                            [Interactive coverage comparison map]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Collaboration Card -->
+    <div class="card-container" id="collab-card">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <h2>Unified Response</h2>
+                    <div class="system-badge esn">New ESN</div>
+                </div>
+                <div class="close-btn"></div>
+            </div>
+            <div class="card-content">
+                <div class="info-section system-details">
+                    <div class="section-title">
+                        <i>📊</i> System Capabilities
+                    </div>
+                    <p>ESN enables unprecedented interoperability between emergency services and partner agencies, breaking down communication barriers during complex incidents.</p>
+                    
+                    <div class="comparison-container">
+                        <div class="old-side">
+                            <div class="comparison-label">Airwave System</div>
+                            <div class="comparison-value">Pre-configured talk groups, manual patching between agencies, incompatible with non-Airwave users</div>
+                        </div>
+                        <div class="new-side">
+                            <div class="comparison-label">ESN Solution</div>
+                            <div class="comparison-value">Dynamic group creation, seamless cross-agency communication, integration with standard mobile devices, cross-border capabilities</div>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-tags">
+                        <div class="benefit-tag">Instant Coordination</div>
+                        <div class="benefit-tag">Unified Communication</div>
+                        <div class="benefit-tag">Wider Collaboration</div>
+                    </div>
+                    
+                    <div class="metrics-container">
+                        <div class="metric">
+                            <div class="metric-value">Minutes</div>
+                            <div class="metric-label">Multi-Agency Setup</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">Unlimited</div>
+                            <div class="metric-label">Agency Integration</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">Seamless</div>
+                            <div class="metric-label">Cross-Border Operations</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section user-journey">
+                    <div class="section-title">
+                        <i>👤</i> Alex's Experience
+                    </div>
+                    
+                    <div class="user-story">
+                        <p>The chemical spill incident now requires coordination with fire services and hazmat teams. Using ESN, Alex is immediately added to a dynamic incident talk group that includes all responding agencies. The control room creates this group in seconds, with no delay in establishing communications. When the volunteer doctor arrives, they can join the ESN group using their standard smartphone with the ESN app. The doctor reviews the patient's vital signs remotely and provides direct guidance to Alex through video call while still en route. Alex shares photos of the chemical containers with the hazmat team, who immediately identify the substance and send proper treatment protocols directly to Alex's device.</p>
+                    </div>
+                    
+                    <div class="media-section">
+                        <div class="section-title">
+                            <i>🎬</i> Experience Visualization
+                        </div>
+                        <div class="media-placeholder">
+                            [Interactive multi-agency coordination visualization]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Future Card -->
+    <div class="card-container" id="future-card">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <h2>Evolution Unleashed</h2>
+                    <div class="system-badge esn">New ESN</div>
+                </div>
+                <div class="close-btn"></div>
+            </div>
+            <div class="card-content">
+                <div class="info-section system-details">
+                    <div class="section-title">
+                        <i>📊</i> System Capabilities
+                    </div>
+                    <p>ESN significantly reduces the total cost of ownership while providing a platform that will continuously evolve with new capabilities over time.</p>
+                    
+                    <div class="comparison-container">
+                        <div class="old-side">
+                            <div class="comparison-label">Airwave System</div>
+                            <div class="comparison-value">High device costs, expensive service charges, proprietary technology with limited upgrade paths</div>
+                        </div>
+                        <div class="new-side">
+                            <div class="comparison-label">ESN Solution</div>
+                            <div class="comparison-value">Competitive device market, shared infrastructure costs, continuous technological evolution aligned with commercial standards</div>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-tags">
+                        <div class="benefit-tag">Long-Term Savings</div>
+                        <div class="benefit-tag">Continuous Improvement</div>
+                        <div class="benefit-tag">Future-Proof Technology</div>
+                    </div>
+                    
+                    <div class="metrics-container">
+                        <div class="metric">
+                            <div class="metric-value">£200M+</div>
+                            <div class="metric-label">Annual Savings</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">£900+</div>
+                            <div class="metric-label">Per Device Cost</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">Continuous</div>
+                            <div class="metric-label">Technology Updates</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section user-journey">
+                    <div class="section-title">
+                        <i>👤</i> Alex's Experience
+                    </div>
+                    
+                    <div class="user-story">
+                        <p>After treating the patient using guidance from the ESN-connected physician, Alex prepares to transport them to the hospital. Using the ESN device, Alex transmits the patient's complete vital signs, treatment information, and images to the emergency department. The hospital staff prepare exactly what's needed before arrival. Alex's ambulance trust has been able to equip all staff with ESN devices due to the significant cost savings compared to Airwave. The multipurpose ESN device replaces several separate devices Alex previously carried. Last month, a software update added new functionality to Alex's device without requiring any hardware changes, including enhanced location tracking inside buildings and integration with the hospital's patient management system.</p>
+                    </div>
+                    
+                    <div class="media-section">
+                        <div class="section-title">
+                            <i>🎬</i> Experience Visualization
+                        </div>
+                        <div class="media-placeholder">
+                            [Interactive future capabilities demonstration]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Cost Card -->
+    <div class="card-container" id="cost-card">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <h2>Budget Barriers</h2>
+                    <div class="system-badge airwave">Legacy Airwave</div>
+                </div>
+                <div class="close-btn"></div>
+            </div>
+            <div class="card-content">
+                <div class="info-section system-details">
+                    <div class="section-title">
+                        <i>📊</i> System Limitations
+                    </div>
+                    <p>The Airwave service has high operational costs with limited potential for technological evolution, creating a financial burden and capability ceiling for emergency services.</p>
+                    
+                    <div class="comparison-container">
+                        <div class="old-side">
+                            <div class="comparison-label">Airwave System</div>
+                            <div class="comparison-value">Proprietary technology with expensive end-of-life equipment, high service charges, and minimal innovation potential</div>
+                        </div>
+                        <div class="new-side">
+                            <div class="comparison-label">ESN Solution</div>
+                            <div class="comparison-value">Commercial mobile technology leveraging economies of scale, competitive device market, and continuous technology evolution</div>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-tags">
+                        <div class="benefit-tag">End-of-Life Technology</div>
+                        <div class="benefit-tag">High Service Charges</div>
+                        <div class="benefit-tag">Limited Innovation</div>
+                    </div>
+                    
+                    <div class="metrics-container">
+                        <div class="metric">
+                            <div class="metric-value">£370M</div>
+                            <div class="metric-label">Annual Cost</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">£3,500+</div>
+                            <div class="metric-label">Per Device Cost</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">Minimal</div>
+                            <div class="metric-label">Future Capabilities</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section user-journey">
+                    <div class="section-title">
+                        <i>👤</i> Alex's Experience
+                    </div>
+                    
+                    <div class="user-story">
+                        <p>After treating the patient, Alex needs to transfer them to the hospital. Alex wants to send patient vitals ahead to the emergency department but can't transmit this data through Airwave. The ambulance trust can't afford to upgrade their equipment due to the high costs of Airwave devices and service charges. Alex's Airwave handset is bulky and only serves a single purpose, requiring them to carry multiple devices for different functions. The trust has been told that no new features will be added to the Airwave system, as it's approaching end-of-life.</p>
+                    </div>
+                    
+                    <div class="media-section">
+                        <div class="section-title">
+                            <i>🎬</i> Experience Visualization
+                        </div>
+                        <div class="media-placeholder">
+                            [Interactive cost comparison visualization]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Data Card -->
+    <div class="card-container" id="data-card">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <h2>Data in Motion</h2>
+                    <div class="system-badge esn">New ESN</div>
+                </div>
+                <div class="close-btn"></div>
+            </div>
+            <div class="card-content">
+                <div class="info-section system-details">
+                    <div class="section-title">
+                        <i>📊</i> System Capabilities
+                    </div>
+                    <p>ESN provides high-speed data services that enable emergency responders to access critical information in the field and share rich media in real-time.</p>
+                    
+                    <div class="comparison-container">
+                        <div class="old-side">
+                            <div class="comparison-label">Airwave System</div>
+                            <div class="comparison-value">Text-only status messages, basic GPS location, no multimedia support</div>
+                        </div>
+                        <div class="new-side">
+                            <div class="comparison-label">ESN Solution</div>
+                            <div class="comparison-value">Live video streaming, high-resolution images, real-time location tracking, access to operational databases and applications</div>
+                        </div>
+                    </div>
+                    
+                    <div class="benefit-tags">
+                        <div class="benefit-tag">Real-Time Intelligence</div>
+                        <div class="benefit-tag">Rich Media Sharing</div>
+                        <div class="benefit-tag">Operational Efficiency</div>
+                    </div>
+                    
+                    <div class="metrics-container">
+                        <div class="metric">
+                            <div class="metric-value">100+ Mbps</div>
+                            <div class="metric-label">Data Speed</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">HD Video</div>
+                            <div class="metric-label">Streaming Quality</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">Full</div>
+                            <div class="metric-label">App Integration</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section user-journey">
+                    <div class="section-title">
+                        <i>👤</i> Alex's Experience
+                    </div>
+                    
+                    <div class="user-story">
+                        <p>Alex, now using ESN, receives an emergency call about a serious accident. Before arriving, dispatch sends photos of the scene and a short video from a bystander, giving Alex a clear understanding of the situation. The control room shares the patient's medical history directly to Alex's device. En route, Alex views live footage from a police helicopter overhead, helping identify the safest approach route. Alex can prepare specifically for what they'll encounter, arriving better equipped and mentally prepared for the emergency.</p>
+                    </div>
+                    
+                    <div class="media-section">
+                        <div class="section-title">
+                            <i>🎬</i> Experience Visualization
+                        </div>
+                        <div class="media-placeholder">
+                            [Interactive data capabilities demonstration]
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1005,586 +1685,3 @@
             </div>
         </div>
     </div>
-    
-    <!-- Cost Card -->
-    <div class="card-container" id="cost-card">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">
-                    <h2>Budget Barriers</h2>
-                    <div class="system-badge airwave">Legacy Airwave</div>
-                </div>
-                <div class="close-btn"></div>
-            </div>
-            <div class="card-content">
-                <div class="info-section system-details">
-                    <div class="section-title">
-                        <i>📊</i> System Limitations
-                    </div>
-                    <p>The Airwave service has high operational costs with limited potential for technological evolution, creating a financial burden and capability ceiling for emergency services.</p>
-                    
-                    <div class="comparison-container">
-                        <div class="old-side">
-                            <div class="comparison-label">Airwave System</div>
-                            <div class="comparison-value">Proprietary technology with expensive end-of-life equipment, high service charges, and minimal innovation potential</div>
-                        </div>
-                        <div class="new-side">
-                            <div class="comparison-label">ESN Solution</div>
-                            <div class="comparison-value">Commercial mobile technology leveraging economies of scale, competitive device market, and continuous technology evolution</div>
-                        </div>
-                    </div>
-                    
-                    <div class="benefit-tags">
-                        <div class="benefit-tag">End-of-Life Technology</div>
-                        <div class="benefit-tag">High Service Charges</div>
-                        <div class="benefit-tag">Limited Innovation</div>
-                    </div>
-                    
-                    <div class="metrics-container">
-                        <div class="metric">
-                            <div class="metric-value">£370M</div>
-                            <div class="metric-label">Annual Cost</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">£3,500+</div>
-                            <div class="metric-label">Per Device Cost</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">Minimal</div>
-                            <div class="metric-label">Future Capabilities</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="info-section user-journey">
-                    <div class="section-title">
-                        <i>👤</i> Alex's Experience
-                    </div>
-                    
-                    <div class="user-story">
-                        <p>After treating the patient, Alex needs to transfer them to the hospital. Alex wants to send patient vitals ahead to the emergency department but can't transmit this data through Airwave. The ambulance trust can't afford to upgrade their equipment due to the high costs of Airwave devices and service charges. Alex's Airwave handset is bulky and only serves a single purpose, requiring them to carry multiple devices for different functions. The trust has been told that no new features will be added to the Airwave system, as it's approaching end-of-life.</p>
-                    </div>
-                    
-                    <div class="media-section">
-                        <div class="section-title">
-                            <i>🎬</i> Experience Visualization
-                        </div>
-                        <div class="media-placeholder">
-                            [Interactive cost comparison visualization]
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Data Card -->
-    <div class="card-container" id="data-card">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">
-                    <h2>Data in Motion</h2>
-                    <div class="system-badge esn">New ESN</div>
-                </div>
-                <div class="close-btn"></div>
-            </div>
-            <div class="card-content">
-                <div class="info-section system-details">
-                    <div class="section-title">
-                        <i>📊</i> System Capabilities
-                    </div>
-                    <p>ESN provides high-speed data services that enable emergency responders to access critical information in the field and share rich media in real-time.</p>
-                    
-                    <div class="comparison-container">
-                        <div class="old-side">
-                            <div class="comparison-label">Airwave System</div>
-                            <div class="comparison-value">Text-only status messages, basic GPS location, no multimedia support</div>
-                        </div>
-                        <div class="new-side">
-                            <div class="comparison-label">ESN Solution</div>
-                            <div class="comparison-value">Live video streaming, high-resolution images, real-time location tracking, access to operational databases and applications</div>
-                        </div>
-                    </div>
-                    
-                    <div class="benefit-tags">
-                        <div class="benefit-tag">Real-Time Intelligence</div>
-                        <div class="benefit-tag">Rich Media Sharing</div>
-                        <div class="benefit-tag">Operational Efficiency</div>
-                    </div>
-                    
-                    <div class="metrics-container">
-                        <div class="metric">
-                            <div class="metric-value">100+ Mbps</div>
-                            <div class="metric-label">Data Speed</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">HD Video</div>
-                            <div class="metric-label">Streaming Quality</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">Full</div>
-                            <div class="metric-label">App Integration</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="info-section user-journey">
-                    <div class="section-title">
-                        <i>👤</i> Alex's Experience
-                    </div>
-                    
-                    <div class="user-story">
-                        <p>Alex, now using ESN, receives an emergency call about a serious accident. Before arriving, dispatch sends photos of the scene and a short video from a bystander, giving Alex a clear understanding of the situation. The control room shares the patient's medical history directly to Alex's device. En route, Alex views live footage from a police helicopter overhead, helping identify the safest approach route. Alex can prepare specifically for what they'll encounter, arriving better equipped and mentally prepared for the emergency.</p>
-                    </div>
-                    
-                    <div class="media-section">
-                        <div class="section-title">
-                            <i>🎬</i> Experience Visualization
-                        </div>
-                        <div class="media-placeholder">
-                            [Interactive data capabilities demonstration]
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Resilience Card -->
-    <div class="card-container" id="resilience-card">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">
-                    <h2>Always Connected</h2>
-                    <div class="system-badge esn">New ESN</div>
-                </div>
-                <div class="close-btn"></div>
-            </div>
-            <div class="card-content">
-                <div class="info-section system-details">
-                    <div class="section-title">
-                        <i>📊</i> System Capabilities
-                    </div>
-                    <p>ESN leverages commercial 4G networks enhanced with dedicated coverage solutions to provide comprehensive service even in challenging environments.</p>
-                    
-                    <div class="comparison-container">
-                        <div class="old-side">
-                            <div class="comparison-label">Airwave System</div>
-                            <div class="comparison-value">Fixed infrastructure with predetermined coverage areas and limited in-building penetration</div>
-                        </div>
-                        <div class="new-side">
-                            <div class="comparison-label">ESN Solution</div>
-                            <div class="comparison-value">Continuously expanding 4G/5G coverage, deployable mobile coverage units, enhanced building penetration, satellite backup options</div>
-                        </div>
-                    </div>
-                    
-                    <div class="benefit-tags">
-                        <div class="benefit-tag">Extended Reach</div>
-                        <div class="benefit-tag">Flexible Coverage</div>
-                        <div class="benefit-tag">Multiple Redundancies</div>
-                    </div>
-                    
-                    <div class="metrics-container">
-                        <div class="metric">
-                            <div class="metric-value">99%+</div>
-                            <div class="metric-label">Population Coverage</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">97%</div>
-                            <div class="metric-label">Geographic Coverage</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">Enhanced</div>
-                            <div class="metric-label">Indoor Penetration</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="info-section user-journey">
-                    <div class="section-title">
-                        <i>👤</i> Alex's Experience
-                    </div>
-                    
-                    <div class="user-story">
-                        <p>Traveling to the accident site with ESN, Alex maintains consistent communication throughout the rural journey. The commercial network coverage has been enhanced with dedicated ESN sites in rural areas. Upon arriving at the remote farm, Alex discovers the incident is inside a large metal barn, but the ESN device automatically switches to a vehicle-mounted gateway that boosts the signal. Inside the barn, Alex maintains full contact with the control room, sharing regular updates about the patient without interruption. When the control room needs to share critical information about hazardous materials, the message gets through clearly.</p>
-                    </div>
-                    
-                    <div class="media-section">
-                        <div class="section-title">
-                            <i>🎬</i> Experience Visualization
-                        </div>
-                        <div class="media-placeholder">
-                            [Interactive coverage comparison map]
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Collaboration Card -->
-    <div class="card-container" id="collab-card">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">
-                    <h2>Unified Response</h2>
-                    <div class="system-badge esn">New ESN</div>
-                </div>
-                <div class="close-btn"></div>
-            </div>
-            <div class="card-content">
-                <div class="info-section system-details">
-                    <div class="section-title">
-                        <i>📊</i> System Capabilities
-                    </div>
-                    <p>ESN enables unprecedented interoperability between emergency services and partner agencies, breaking down communication barriers during complex incidents.</p>
-                    
-                    <div class="comparison-container">
-                        <div class="old-side">
-                            <div class="comparison-label">Airwave System</div>
-                            <div class="comparison-value">Pre-configured talk groups, manual patching between agencies, incompatible with non-Airwave users</div>
-                        </div>
-                        <div class="new-side">
-                            <div class="comparison-label">ESN Solution</div>
-                            <div class="comparison-value">Dynamic group creation, seamless cross-agency communication, integration with standard mobile devices, cross-border capabilities</div>
-                        </div>
-                    </div>
-                    
-                    <div class="benefit-tags">
-                        <div class="benefit-tag">Instant Coordination</div>
-                        <div class="benefit-tag">Unified Communication</div>
-                        <div class="benefit-tag">Wider Collaboration</div>
-                    </div>
-                    
-                    <div class="metrics-container">
-                        <div class="metric">
-                            <div class="metric-value">Minutes</div>
-                            <div class="metric-label">Multi-Agency Setup</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">Unlimited</div>
-                            <div class="metric-label">Agency Integration</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">Seamless</div>
-                            <div class="metric-label">Cross-Border Operations</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="info-section user-journey">
-                    <div class="section-title">
-                        <i>👤</i> Alex's Experience
-                    </div>
-                    
-                    <div class="user-story">
-                        <p>The chemical spill incident now requires coordination with fire services and hazmat teams. Using ESN, Alex is immediately added to a dynamic incident talk group that includes all responding agencies. The control room creates this group in seconds, with no delay in establishing communications. When the volunteer doctor arrives, they can join the ESN group using their standard smartphone with the ESN app. The doctor reviews the patient's vital signs remotely and provides direct guidance to Alex through video call while still en route. Alex shares photos of the chemical containers with the hazmat team, who immediately identify the substance and send proper treatment protocols directly to Alex's device.</p>
-                    </div>
-                    
-                    <div class="media-section">
-                        <div class="section-title">
-                            <i>🎬</i> Experience Visualization
-                        </div>
-                        <div class="media-placeholder">
-                            [Interactive multi-agency coordination visualization]
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Future Card -->
-    <div class="card-container" id="future-card">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">
-                    <h2>Evolution Unleashed</h2>
-                    <div class="system-badge esn">New ESN</div>
-                </div>
-                <div class="close-btn"></div>
-            </div>
-            <div class="card-content">
-                <div class="info-section system-details">
-                    <div class="section-title">
-                        <i>📊</i> System Capabilities
-                    </div>
-                    <p>ESN significantly reduces the total cost of ownership while providing a platform that will continuously evolve with new capabilities over time.</p>
-                    
-                    <div class="comparison-container">
-                        <div class="old-side">
-                            <div class="comparison-label">Airwave System</div>
-                            <div class="comparison-value">High device costs, expensive service charges, proprietary technology with limited upgrade paths</div>
-                        </div>
-                        <div class="new-side">
-                            <div class="comparison-label">ESN Solution</div>
-                            <div class="comparison-value">Competitive device market, shared infrastructure costs, continuous technological evolution aligned with commercial standards</div>
-                        </div>
-                    </div>
-                    
-                    <div class="benefit-tags">
-                        <div class="benefit-tag">Long-Term Savings</div>
-                        <div class="benefit-tag">Continuous Improvement</div>
-                        <div class="benefit-tag">Future-Proof Technology</div>
-                    </div>
-                    
-                    <div class="metrics-container">
-                        <div class="metric">
-                            <div class="metric-value">£200M+</div>
-                            <div class="metric-label">Annual Savings</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">£900+</div>
-                            <div class="metric-label">Per Device Cost</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">Continuous</div>
-                            <div class="metric-label">Technology Updates</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="info-section user-journey">
-                    <div class="section-title">
-                        <i>👤</i> Alex's Experience
-                    </div>
-                    
-                    <div class="user-story">
-                        <p>After treating the patient using guidance from the ESN-connected physician, Alex prepares to transport them to the hospital. Using the ESN device, Alex transmits the patient's complete vital signs, treatment information, and images to the emergency department. The hospital staff prepare exactly what's needed before arrival. Alex's ambulance trust has been able to equip all staff with ESN devices due to the significant cost savings compared to Airwave. The multipurpose ESN device replaces several separate devices Alex previously carried. Last month, a software update added new functionality to Alex's device without requiring any hardware changes, including enhanced location tracking inside buildings and integration with the hospital's patient management system.</p>
-                    </div>
-                    
-                    <div class="media-section">
-                        <div class="section-title">
-                            <i>🎬</i> Experience Visualization
-                        </div>
-                        <div class="media-placeholder">
-                            [Interactive future capabilities demonstration]
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- JavaScript for interactions -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Create stars for background
-            const starsContainer = document.getElementById('stars-container');
-            for (let i = 0; i < 500; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                
-                // Use viewport-relative positioning instead of absolute pixels
-                // This ensures stars appear across the entire visible area
-                // Random position across the entire width and height
-                star.style.left = `${Math.random() * 100}%`;
-                star.style.top = `${Math.random() * 100}%`;
-                
-                // Random size and opacity
-                const size = Math.random() * 3 + 1;
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                star.style.opacity = Math.random() * 0.8 + 0.2;
-                
-                starsContainer.appendChild(star);
-            }
-            
-            // Get all timeline points and cards
-            const timelinePoints = document.querySelectorAll('.timeline-point');
-            const cardContainers = document.querySelectorAll('.card-container');
-            const closeButtons = document.querySelectorAll('.close-btn');
-            
-            // Demo controls
-            const scrollLeftFast = document.getElementById('scroll-left-fast');
-            const scrollLeft = document.getElementById('scroll-left');
-            const scrollRight = document.getElementById('scroll-right');
-            const scrollRightFast = document.getElementById('scroll-right-fast');
-            const scrollPercent = document.getElementById('scroll-percent');
-            
-            // Function to update scroll percentage
-            function updateScrollPercent() {
-                const maxScroll = document.body.scrollWidth - window.innerWidth;
-                const currentPercent = Math.round((window.scrollX / maxScroll) * 100);
-                scrollPercent.textContent = currentPercent;
-            }
-            
-            // Add scroll event listener
-            window.addEventListener('scroll', updateScrollPercent);
-            
-            // Add click event listeners to demo controls
-            scrollLeftFast.addEventListener('click', () => {
-                window.scrollBy({ left: -2000, behavior: 'smooth' });
-            });
-            
-            scrollLeft.addEventListener('click', () => {
-                window.scrollBy({ left: -500, behavior: 'smooth' });
-            });
-            
-            scrollRight.addEventListener('click', () => {
-                window.scrollBy({ left: 500, behavior: 'smooth' });
-            });
-            
-            scrollRightFast.addEventListener('click', () => {
-                window.scrollBy({ left: 2000, behavior: 'smooth' });
-            });
-            
-            // Initial update
-            updateScrollPercent();
-            
-            // Function to hide all cards
-            function hideAllCards() {
-                cardContainers.forEach(container => {
-                    container.classList.remove('visible');
-                });
-            }
-            
-            // Point positions for each ID - hardcoded to match CSS
-            const pointPositions = {
-                'voice': 1000,
-                'coverage': 2200,
-                'interop': 3400,
-                'cost': 4600,
-                'data': 5400,
-                'resilience': 6800,
-                'collab': 8000,
-                'future': 9200
-            };
-            
-            // Variables to track the last clicked point
-            let lastClickedId = null;
-            let lastClickedPosition = null;
-            
-            // Get the ambulance element
-            const ambulance = document.getElementById('flying-ambulance');
-            
-            // Function to animate the ambulance between two points
-            function animateAmbulance(startX, endX) {
-                // Make the ambulance visible
-                ambulance.classList.add('active');
-                
-                // Make flames visible
-                const flames = document.getElementById('rocket-flames');
-                flames.classList.add('active');
-                
-                // Position the ambulance at the starting point
-                ambulance.style.left = `${startX}px`;
-                
-                // Position flames behind ambulance
-                flames.style.left = `${startX - 60}px`;
-                
-                // Determine direction
-                const goingRight = endX > startX;
-                
-                // Flip the ambulance if it's going left
-                if (!goingRight) {
-                    ambulance.style.transform = 'translateY(-100px) scaleX(-1)';
-                    flames.style.transform = 'translateY(-65px) scaleX(-1)';
-                } else {
-                    ambulance.style.transform = 'translateY(-100px)';
-                    flames.style.transform = 'translateY(-65px)';
-                }
-                
-                // Calculate animation duration based on distance
-                const distance = Math.abs(endX - startX);
-                const duration = Math.min(Math.max(distance / 500, 2), 10); // Between 2 and 10 seconds
-                
-                // Animate ambulance
-                ambulance.style.transition = `left ${duration}s ease, opacity 0.5s ease`;
-                
-                // Animate flames with same duration
-                flames.style.transition = `left ${duration}s ease, opacity 0.5s ease`;
-                
-                // Start the animation after a short delay
-                setTimeout(() => {
-                    ambulance.style.left = `${endX}px`;
-                    flames.style.left = `${endX - 60}px`;
-                    
-                    // Hide the ambulance and flames after the animation is complete
-                    setTimeout(() => {
-                        ambulance.classList.remove('active');
-                        flames.classList.remove('active');
-                    }, duration * 1000);
-                }, 100);
-            }
-            
-            // Function to show a specific card
-            function showCard(id) {
-                hideAllCards();
-                const cardContainer = document.getElementById(id + '-card');
-                if (cardContainer) {
-                    // Make the container visible
-                    cardContainer.classList.add('visible');
-                    
-                    // Position the card relative to the clicked point
-                    const card = cardContainer.querySelector('.card');
-                    if (card) {
-                        // Get the position for this point
-                        const pointPosition = pointPositions[id];
-                        const cardWidth = 2500; // Width of the card
-                        
-                        // Calculate the left position to center the card on the timeline point
-                        let leftPosition = pointPosition - (cardWidth / 2);
-                        
-                        // Ensure card is not positioned too far to the left or right
-                        leftPosition = Math.max(500, leftPosition);
-                        leftPosition = Math.min(7000, leftPosition);
-                        
-                        // Set the position
-                        card.style.left = `${leftPosition}px`;
-                        card.style.top = '100px'; // Fixed vertical position
-                    }
-                }
-                
-                // If we have a previous point, animate the ambulance
-                if (lastClickedId !== null && lastClickedId !== id) {
-                    const startX = pointPositions[lastClickedId];
-                    const endX = pointPositions[id];
-                    
-                    // Animate the ambulance from the last point to the current one
-                    animateAmbulance(startX, endX);
-                }
-                
-                // Update the last clicked point
-                lastClickedId = id;
-            }
-            
-            // Add click event listeners to timeline points
-            timelinePoints.forEach(point => {
-                point.addEventListener('click', function() {
-                    const id = this.dataset.id;
-                    showCard(id);
-                });
-            });
-            
-            // Add click event listeners to close buttons
-            closeButtons.forEach(button => {
-                button.addEventListener('click', hideAllCards);
-            });
-            
-            // Close card when clicking outside the card content
-            cardContainers.forEach(container => {
-                container.addEventListener('click', function(e) {
-                    if (e.target === this) {
-                        hideAllCards();
-                    }
-                });
-            });
-            
-            // Escape key to close cards
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    hideAllCards();
-                }
-            });
-            
-            // Arrow keys for navigation
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'ArrowLeft') {
-                    window.scrollBy({ left: -500, behavior: 'smooth' });
-                } else if (e.key === 'ArrowRight') {
-                    window.scrollBy({ left: 500, behavior: 'smooth' });
-                }
-            });
-        });
-    </script>

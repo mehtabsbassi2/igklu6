@@ -619,39 +619,7 @@
             font-size: 24px;
         }
         
-        /* For demo - scrolling controls */
-        .demo-controls {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.7);
-            padding: 15px;
-            border-radius: 10px;
-            display: flex;
-            gap: 10px;
-            z-index: 1000;
-        }
-        
-        .demo-button {
-            background: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        
-        .demo-button:hover {
-            background: #e0e0e0;
-        }
-        
-        .scroll-position {
-            color: white;
-            margin: 0 10px;
-            display: flex;
-            align-items: center;
-        }
+      
 
         /* Animations */
         @keyframes fadeIn {
@@ -715,15 +683,6 @@
         </svg>
     </div>
 
-    <!-- Demo navigation controls for standard browsers -->
-    <div class="demo-controls">
-        <button class="demo-button" id="scroll-left-fast">◄◄ Fast</button>
-        <button class="demo-button" id="scroll-left">◄ Left</button>
-        <span class="scroll-position">Position: <span id="scroll-percent">0</span>%</span>
-        <button class="demo-button" id="scroll-right">Right ►</button>
-        <button class="demo-button" id="scroll-right-fast">Fast ►►</button>
-    </div>
-
     <!-- Header with logos and title -->
     <header class="esn-header">
         <div class="logo-container">
@@ -773,43 +732,7 @@
           const cardContainers = document.querySelectorAll('.card-container');
           const closeButtons = document.querySelectorAll('.close-btn');
           
-          // Demo controls
-          const scrollLeftFast = document.getElementById('scroll-left-fast');
-          const scrollLeft = document.getElementById('scroll-left');
-          const scrollRight = document.getElementById('scroll-right');
-          const scrollRightFast = document.getElementById('scroll-right-fast');
-          const scrollPercent = document.getElementById('scroll-percent');
-          
-          // Function to update scroll percentage
-          function updateScrollPercent() {
-              const maxScroll = document.body.scrollWidth - window.innerWidth;
-              const currentPercent = Math.round((window.scrollX / maxScroll) * 100);
-              scrollPercent.textContent = currentPercent;
-          }
-          
-          // Add scroll event listener
-          window.addEventListener('scroll', updateScrollPercent);
-          
-          // Add click event listeners to demo controls
-          scrollLeftFast.addEventListener('click', () => {
-              window.scrollBy({ left: -2000, behavior: 'smooth' });
-          });
-          
-          scrollLeft.addEventListener('click', () => {
-              window.scrollBy({ left: -500, behavior: 'smooth' });
-          });
-          
-          scrollRight.addEventListener('click', () => {
-              window.scrollBy({ left: 500, behavior: 'smooth' });
-          });
-          
-          scrollRightFast.addEventListener('click', () => {
-              window.scrollBy({ left: 2000, behavior: 'smooth' });
-          });
-          
-          // Initial update
-          updateScrollPercent();
-          
+       
           // Function to hide all cards
           function hideAllCards() {
               cardContainers.forEach(container => {
@@ -887,45 +810,50 @@
           }
           
           // Function to show a specific card
-          function showCard(id) {
-              hideAllCards();
-              const cardContainer = document.getElementById(id + '-card');
-              if (cardContainer) {
-                  // Make the container visible
-                  cardContainer.classList.add('visible');
-                  
-                  // Position the card relative to the clicked point
-                  const card = cardContainer.querySelector('.card');
-                  if (card) {
-                      // Get the position for this point
-                      const pointPosition = pointPositions[id];
-                      const cardWidth = 2500; // Width of the card
-                      
-                      // Calculate the left position to center the card on the timeline point
-                      let leftPosition = pointPosition - (cardWidth / 2);
-                      
-                      // Ensure card is not positioned too far to the left or right
-                      leftPosition = Math.max(500, leftPosition);
-                      leftPosition = Math.min(7000, leftPosition);
-                      
-                      // Set the position
-                      card.style.left = `${leftPosition}px`;
-                      card.style.top = '100px'; // Fixed vertical position
-                  }
-              }
-              
-              // If we have a previous point, animate the ambulance
-              if (lastClickedId !== null && lastClickedId !== id) {
-                  const startX = pointPositions[lastClickedId];
-                  const endX = pointPositions[id];
-                  
-                  // Animate the ambulance from the last point to the current one
-                  animateAmbulance(startX, endX);
-              }
-              
-              // Update the last clicked point
-              lastClickedId = id;
-          }
+// Function to show a specific card
+function showCard(id) {
+    hideAllCards();
+    
+    // If we have a previous point, animate the ambulance
+    if (lastClickedId !== null && lastClickedId !== id) {
+        const startX = pointPositions[lastClickedId];
+        const endX = pointPositions[id];
+        
+        // Animate the ambulance from the last point to the current one
+        animateAmbulance(startX, endX);
+    }
+    
+    // Update the last clicked point
+    lastClickedId = id;
+    
+    // Show the card after 2 second delay
+    setTimeout(() => {
+        const cardContainer = document.getElementById(id + '-card');
+        if (cardContainer) {
+            // Make the container visible
+            cardContainer.classList.add('visible');
+            
+            // Position the card relative to the clicked point
+            const card = cardContainer.querySelector('.card');
+            if (card) {
+                // Get the position for this point
+                const pointPosition = pointPositions[id];
+                const cardWidth = 2500; // Width of the card
+                
+                // Calculate the left position to center the card on the timeline point
+                let leftPosition = pointPosition - (cardWidth / 2);
+                
+                // Ensure card is not positioned too far to the left or right
+                leftPosition = Math.max(500, leftPosition);
+                leftPosition = Math.min(7000, leftPosition);
+                
+                // Set the position
+                card.style.left = `${leftPosition}px`;
+                card.style.top = '100px'; // Fixed vertical position
+            }
+        }
+    }, 2000); // 2 second delay
+}
           
           // Add click event listeners to timeline points
           timelinePoints.forEach(point => {

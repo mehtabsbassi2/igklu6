@@ -215,33 +215,28 @@
             transform: translateY(-50%);
         }
         
-        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap');
-        
         .timeline::before {
             content: "LEGACY AIRWAVE";
             position: absolute;
             left: 10%;
             top: -80px;
-            color: var(--primary-color);
+            color: var(--text-light);
             font-weight: bold;
             font-size: 40px;
-            opacity: 0.8;
+            opacity: 0.7;
             text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            font-family: 'Quicksand', sans-serif;
         }
         
         .timeline::after {
             content: "NEW ESN SYSTEM";
             position: absolute;
-            left: 50%;
-            transform: translateX(50px);
+            right: 10%;
             top: -80px;
-            color: var(--text-light);
+            color: var(--primary-color);
             font-weight: bold;
             font-size: 40px;
-            opacity: 0.8;
+            opacity: 0.7;
             text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            font-family: 'Quicksand', sans-serif;
         }
         
         .divider {
@@ -443,22 +438,13 @@
             display: inline-block;
         }
         
-        .system-badge {
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-size: 20px;
-            margin-top: 10px;
-            display: inline-block;
-            font-family: 'Quicksand', sans-serif;
-        }
-        
         .system-badge.airwave {
-            background-color: rgba(138, 91, 186, 0.3);
+            background-color: rgba(0, 0, 0, 0.7);
             color: white;
         }
         
         .system-badge.esn {
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(138, 91, 186, 0.3);
             color: white;
         }
         
@@ -620,7 +606,39 @@
             font-size: 24px;
         }
         
-        /* Navigation controls removed */
+        /* For demo - scrolling controls */
+        .demo-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        
+        .demo-button {
+            background: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .demo-button:hover {
+            background: #e0e0e0;
+        }
+        
+        .scroll-position {
+            color: white;
+            margin: 0 10px;
+            display: flex;
+            align-items: center;
+        }
 
         /* Animations */
         @keyframes fadeIn {
@@ -684,7 +702,14 @@
         </svg>
     </div>
 
-    <!-- Navigation controls removed as requested -->
+    <!-- Demo navigation controls for standard browsers -->
+    <div class="demo-controls">
+        <button class="demo-button" id="scroll-left-fast">◄◄ Fast</button>
+        <button class="demo-button" id="scroll-left">◄ Left</button>
+        <span class="scroll-position">Position: <span id="scroll-percent">0</span>%</span>
+        <button class="demo-button" id="scroll-right">Right ►</button>
+        <button class="demo-button" id="scroll-right-fast">Fast ►►</button>
+    </div>
 
     <!-- Header with logos and title -->
     <header class="esn-header">

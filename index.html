@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Just the ambulance with no flames -->
+    <!-- Just the ambulance with no separate flames -->
     <div class="ambulance" id="flying-ambulance">
+        <!-- Flame DIV using CSS -->
+        <div class="flame-element"></div>
+        
         <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
             <!-- Ambulance Body -->
             <rect x="10" y="30" width="80" height="25" rx="5" fill="#ffffff" />
@@ -718,64 +721,12 @@
             </div>
         </div>
         
-        <!-- Team Members -->
-        <div class="team-container">
-            <div class="team-member">
-                <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="20" cy="20" r="18" fill="#3498db" />
-                    <circle cx="20" cy="15" r="7" fill="#f5f5f5" />
-                    <path d="M8,34 C8,24 32,24 32,34" fill="#f5f5f5" />
-                </svg>
-                <div class="name">Jake</div>
-            </div>
-            <div class="team-member">
-                <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="20" cy="20" r="18" fill="#e74c3c" />
-                    <circle cx="20" cy="15" r="7" fill="#f5f5f5" />
-                    <path d="M8,34 C8,24 32,24 32,34" fill="#f5f5f5" />
-                </svg>
-                <div class="name">Hamdan</div>
-            </div>
-            <div class="team-member">
-                <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="20" cy="20" r="18" fill="#2ecc71" />
-                    <circle cx="20" cy="15" r="7" fill="#f5f5f5" />
-                    <path d="M8,34 C8,24 32,24 32,34" fill="#f5f5f5" />
-                </svg>
-                <div class="name">Mehtab</div>
-            </div>
-            <div class="team-member">
-                <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="20" cy="20" r="18" fill="#f39c12" />
-                    <circle cx="20" cy="15" r="7" fill="#f5f5f5" />
-                    <path d="M8,34 C8,24 32,24 32,34" fill="#f5f5f5" />
-                </svg>
-                <div class="name">Hamse</div>
-            </div>
-            <div class="team-member">
-                <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="20" cy="20" r="18" fill="#9b59b6" />
-                    <circle cx="20" cy="15" r="7" fill="#f5f5f5" />
-                    <path d="M8,34 C8,24 32,24 32,34" fill="#f5f5f5" />
-                    <!-- Hair for girl icon -->
-                    <path d="M13,15 C13,8 27,8 27,15" stroke="#000" stroke-width="2" fill="none" />
-                </svg>
-                <div class="name">Arshveer</div>
-            </div>
-            <div class="team-member">
-                <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="20" cy="20" r="18" fill="#1abc9c" />
-                    <circle cx="20" cy="15" r="7" fill="#f5f5f5" />
-                    <path d="M8,34 C8,24 32,24 32,34" fill="#f5f5f5" />
-                </svg>
-                <div class="name">Saad</div>
-            </div>
-        </div>
-        
         <div class="title-container">
             <h1>The Evolution of Emergency Communications</h1>
             <p class="subtitle">From Airwave to ESN: Transforming First Responder Technology</p>
         </div>
+        
+        <div style="width: 200px;"></div> <!-- Spacer for alignment -->
     </header>
     
     <!-- Main timeline container -->
@@ -1516,8 +1467,10 @@
                 // Flip the ambulance if it's going left
                 if (!goingRight) {
                     ambulance.style.transform = 'translateY(-100px) scaleX(-1)';
+                    ambulance.classList.add('flipped');
                 } else {
                     ambulance.style.transform = 'translateY(-100px)';
+                    ambulance.classList.remove('flipped');
                 }
                 
                 // Calculate animation duration based on distance

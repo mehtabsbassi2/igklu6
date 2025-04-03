@@ -32,7 +32,7 @@
             <circle cx="28" cy="17" r="2" class="ambulance-light" />
         </svg>
     </div><meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ESN Transformation Journey - Igloo 360° Experience</title>
     <style>
         :root {
@@ -55,11 +55,11 @@
         
         body {
             color: var(--text-light);
-            overflow-x: auto;
-            width: 100%;
-            height: auto;
+            overflow-x: scroll;
+            overflow-y: hidden;
+            width: 10000px;
+            height: 1000px;
             position: relative;
-            min-height: 100vh;
         }
         
         html {
@@ -693,107 +693,6 @@
         .slide-in-left {
             animation: slideInLeft 0.5s ease forwards;
         }
-    @media (max-width: 768px) {
-        body {
-            overflow-x: auto;
-            height: auto;
-        }
-    
-        .main-container,
-        .timeline-container {
-            width: 100%;
-            transform: scale(0.8);
-        }
-    
-        .timeline {
-            left: 50px;
-            right: 50px;
-        }
-    
-        .timeline::before,
-        .timeline::after {
-            font-size: 20px;
-            top: -40px;
-        }
-    
-        .divider {
-            height: 150px;
-        }
-    
-        .timeline-point {
-            width: 50px;
-            height: 50px;
-        }
-    
-        .point-icon {
-            font-size: 24px;
-        }
-    
-        .card {
-            width: 90%;
-            height: auto;
-            transform: translateY(50px);
-        }
-    
-        .card-header {
-            padding: 15px;
-            height: auto;
-        }
-    
-        .card-title h2 {
-            font-size: 24px;
-        }
-    
-        .system-badge {
-            font-size: 14px;
-        }
-    
-        .card-content {
-            flex-direction: column;
-        }
-    
-        .info-section {
-            width: 100%;
-            padding: 20px;
-            font-size: 16px;
-        }
-    
-        .esn-header {
-            flex-direction: column;
-            padding: 10px;
-        }
-    
-        .title-container {
-            width: 100%;
-            margin-top: 10px;
-        }
-    
-        .title-container h1 {
-            font-size: 24px;
-        }
-    
-        .subtitle {
-            font-size: 16px;
-        }
-    
-        .demo-controls {
-            bottom: 10px;
-            padding: 10px;
-        }
-    
-        .demo-button {
-            padding: 5px 10px;
-        }
-        .ambulance {
-            width: 100px;
-            transform: translateY(-50px) scale(0.8);
-        }
-
-        .rocket-flames {
-            width: 40px;
-            transform: translateY(-40px);
-        }
-    }
     </style>
 </head>
 <body>
@@ -1657,30 +1556,7 @@
                     showCard(id);
                 });
             });
-            // Add touch event listeners to timeline points
-            timelinePoints.forEach(point => {
-                point.addEventListener('touchstart', function(e) {
-                    e.preventDefault();
-                    const id = this.dataset.id;
-                    showCard(id);
-                });
-            });
             
-            // Make cards swipeable
-            let touchStartX = 0;
-            cardContainers.forEach(container => {
-                container.addEventListener('touchstart', e => {
-                    touchStartX = e.touches[0].clientX;
-                });
-                
-                container.addEventListener('touchend', e => {
-                    const touchEndX = e.changedTouches[0].clientX;
-                    if (Math.abs(touchEndX - touchStartX) > 50) {
-                        hideAllCards();
-                    }
-                });
-            });
-
             // Add click event listeners to close buttons
             closeButtons.forEach(button => {
                 button.addEventListener('click', hideAllCards);

@@ -76,7 +76,8 @@
         /* Header */
         .esn-header {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
             padding: 20px 40px;
             background: rgba(0, 0, 0, 0.5);
             position: absolute;
@@ -84,13 +85,6 @@
             left: 0;
             width: 100%;
             z-index: 100;
-        }
-        
-        .header-top-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
         }
         
         .logo-container {
@@ -502,8 +496,6 @@
             justify-content: center;
             cursor: pointer;
             transition: background 0.3s ease;
-            position: relative;
-            z-index: 100;
         }
         
         .close-btn:hover {
@@ -712,7 +704,8 @@
             animation: slideInLeft 0.5s ease forwards;
         }
         
-        /* Team Members - Horizontal Bar Solution */
+        /* Team Members - Horizontal Bar Solution - REMOVED */
+        /*
         .team-bar {
             display: flex;
             align-items: center;
@@ -747,6 +740,7 @@
             text-align: center;
             color: var(--text-light);
         }
+        */
     </style>
 </head>
 <body>
@@ -754,96 +748,28 @@
     
     <!-- Header with logos and title -->
     <header class="esn-header">
-        <div class="header-top-row">
-            <div class="logo-container">
-                <div class="ibm-logo">IBM</div>
-                <div class="esn-logo">
-                    <div>ESN</div>
-                    <div class="esn-dots">
-                        <div class="esn-dot outline"></div>
-                        <div class="esn-dot filled"></div>
-                        <div class="esn-dot outline"></div>
-                    </div>
-                    <div class="esn-name">Emergency<br>Services Network</div>
+        <div class="logo-container">
+            <div class="ibm-logo">IBM</div>
+            <div class="esn-logo">
+                <div>ESN</div>
+                <div class="esn-dots">
+                    <div class="esn-dot outline"></div>
+                    <div class="esn-dot filled"></div>
+                    <div class="esn-dot outline"></div>
                 </div>
-                <div class="synergy-logo">
-                    <div class="synergy-circle synergy-black"></div>
-                    <div class="synergy-circle synergy-green"></div>
-                    <div class="synergy-circle synergy-blue"></div>
-                    <div class="synergy-circle synergy-purple"></div>
-                </div>
+                <div class="esn-name">Emergency<br>Services Network</div>
             </div>
-            
-            <div class="title-container">
-                <h1>The Evolution of Emergency Communications</h1>
-                <p class="subtitle">From Airwave to ESN: Transforming First Responder Technology</p>
+            <div class="synergy-logo">
+                <div class="synergy-circle synergy-black"></div>
+                <div class="synergy-circle synergy-green"></div>
+                <div class="synergy-circle synergy-blue"></div>
+                <div class="synergy-circle synergy-purple"></div>
             </div>
         </div>
         
-        <!-- Team Members Horizontal Bar -->
-        <div class="team-bar">
-            <div class="team-member">
-                <div class="member-avatar">
-                    <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="20" cy="20" r="18" fill="#3498db" />
-                        <circle cx="20" cy="15" r="7" fill="#f5f5f5" />
-                        <path d="M8,34 C8,24 32,24 32,34" fill="#f5f5f5" />
-                    </svg>
-                </div>
-                <div class="name">Jake</div>
-            </div>
-            <div class="team-member">
-                <div class="member-avatar">
-                    <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="20" cy="20" r="18" fill="#e74c3c" />
-                        <circle cx="20" cy="15" r="7" fill="#f5f5f5" />
-                        <path d="M8,34 C8,24 32,24 32,34" fill="#f5f5f5" />
-                    </svg>
-                </div>
-                <div class="name">Hamdan</div>
-            </div>
-            <div class="team-member">
-                <div class="member-avatar">
-                    <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="20" cy="20" r="18" fill="#2ecc71" />
-                        <circle cx="20" cy="15" r="7" fill="#f5f5f5" />
-                        <path d="M8,34 C8,24 32,24 32,34" fill="#f5f5f5" />
-                    </svg>
-                </div>
-                <div class="name">Mehtab</div>
-            </div>
-            <div class="team-member">
-                <div class="member-avatar">
-                    <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="20" cy="20" r="18" fill="#f39c12" />
-                        <circle cx="20" cy="15" r="7" fill="#f5f5f5" />
-                        <path d="M8,34 C8,24 32,24 32,34" fill="#f5f5f5" />
-                    </svg>
-                </div>
-                <div class="name">Hamse</div>
-            </div>
-            <div class="team-member">
-                <div class="member-avatar">
-                    <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="20" cy="20" r="18" fill="#9b59b6" />
-                        <circle cx="20" cy="15" r="7" fill="#f5f5f5" />
-                        <path d="M8,34 C8,24 32,24 32,34" fill="#f5f5f5" />
-                        <!-- Hair for girl icon -->
-                        <path d="M13,15 C13,8 27,8 27,15" stroke="#000" stroke-width="2" fill="none" />
-                    </svg>
-                </div>
-                <div class="name">Arshveer</div>
-            </div>
-            <div class="team-member">
-                <div class="member-avatar">
-                    <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="20" cy="20" r="18" fill="#1abc9c" />
-                        <circle cx="20" cy="15" r="7" fill="#f5f5f5" />
-                        <path d="M8,34 C8,24 32,24 32,34" fill="#f5f5f5" />
-                    </svg>
-                </div>
-                <div class="name">Saad</div>
-            </div>
+        <div class="title-container">
+            <h1>The Evolution of Emergency Communications</h1>
+            <p class="subtitle">From Airwave to ESN: Transforming First Responder Technology</p>
         </div>
     </header>
     
@@ -1484,12 +1410,12 @@
     <!-- Voice Card -->
     <div class="card-container" id="voice-card">
         <div class="card">
-            <a class="close-card-link" onclick="document.getElementById('voice-card').classList.remove('visible');">×</a>
             <div class="card-header">
                 <div class="card-title">
                     <h2>Reaching for Help</h2>
                     <div class="system-badge airwave">Legacy Airwave</div>
                 </div>
+                <div class="close-btn"></div>
             </div>
             <div class="card-content">
                 <div class="info-section system-details">
@@ -1556,12 +1482,12 @@
     <!-- Coverage Card -->
     <div class="card-container" id="coverage-card">
         <div class="card">
-            <a class="close-card-link" onclick="document.getElementById('coverage-card').classList.remove('visible');">×</a>
             <div class="card-header">
                 <div class="card-title">
                     <h2>Signal Lost</h2>
                     <div class="system-badge airwave">Legacy Airwave</div>
                 </div>
+                <div class="close-btn"></div>
             </div>
             <div class="card-content">
                 <div class="info-section system-details">
@@ -1595,6 +1521,64 @@
                         <div class="metric">
                             <div class="metric-value">70%</div>
                             <div class="metric-label">Rural Coverage</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">Limited</div>
+                            <div class="metric-label">Indoor Penetration</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section user-journey">
+                    <div class="section-title">
+                        <i>👤</i> Alex's Experience
+                    </div>
+                    
+                    <div class="user-story">
+                        <p>En route to the accident scene, Alex travels through a rural area with patchy Airwave coverage. The communication drops several times, causing Alex to miss important updates from dispatch. When arriving at a remote farm, Alex discovers the incident is inside a large metal barn where radio signal barely penetrates. Communication with the control room becomes intermittent, forcing Alex to step outside repeatedly to provide updates on the patient's condition.</p>
+                    </div>
+                    
+                    <div class="media-section">
+                        <div class="section-title">
+                            <i>🎬</i> Experience Visualization
+                        </div>
+                        <div class="media-placeholder">
+                            [Interactive coverage map showing signal loss areas]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>="metric-label">Rural Coverage</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">Limited</div>
+                            <div class="metric-label">Indoor Penetration</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section user-journey">
+                    <div class="section-title">
+                        <i>👤</i> Alex's Experience
+                    </div>
+                    
+                    <div class="user-story">
+                        <p>En route to the accident scene, Alex travels through a rural area with patchy Airwave coverage. The communication drops several times, causing Alex to miss important updates from dispatch. When arriving at a remote farm, Alex discovers the incident is inside a large metal barn where radio signal barely penetrates. Communication with the control room becomes intermittent, forcing Alex to step outside repeatedly to provide updates on the patient's condition.</p>
+                    </div>
+                    
+                    <div class="media-section">
+                        <div class="section-title">
+                            <i>🎬</i> Experience Visualization
+                        </div>
+                        <div class="media-placeholder">
+                            [Interactive coverage map showing signal loss areas]
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>="metric-label">Rural Coverage</div>
                         </div>
                         <div class="metric">
                             <div class="metric-value">Limited</div>

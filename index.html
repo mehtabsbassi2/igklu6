@@ -218,17 +218,17 @@
         }
         
         .timeline::before {
-            content: "LEGACY AIRWAVE";
-            position: absolute;
-            left: 10%;
-            top: -80px;
-            color: var(--primary-color);
-            font-weight: bold;
-            font-size: 40px;
-            opacity: 0.8;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            font-family: 'Quicksand', sans-serif;
-        }
+    content: "LEGACY AIRWAVE";
+    position: absolute;
+    left: 15%;  /* Change from 10% to 15% to move it right */
+    top: -80px;
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 40px;
+    opacity: 0.8;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    font-family: 'Quicksand', sans-serif;
+}
         
         .timeline::after {
             content: "NEW ESN SYSTEM";
@@ -651,6 +651,10 @@
     </style>
 </head>
 <body>
+  <audio id="background-music" loop>
+    <source src="background-music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
     <!-- Separate flames and ambulance elements -->
     <div id="rocket-flames" class="rocket-flames">
         <svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
@@ -700,212 +704,262 @@
     
     <!-- JavaScript for interactions -->
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
-          // Create stars for background
-          const starsContainer = document.getElementById('stars-container');
-          for (let i = 0; i < 500; i++) {
-              const star = document.createElement('div');
-              star.className = 'star';
-              
-              // Use viewport-relative positioning instead of absolute pixels
-              // This ensures stars appear across the entire visible area
-              // Random position across the entire width and height
-              star.style.left = `${Math.random() * 100}%`;
-              star.style.top = `${Math.random() * 100}%`;
-              
-              // Random size and opacity
-              const size = Math.random() * 3 + 1;
-              star.style.width = `${size}px`;
-              star.style.height = `${size}px`;
-              star.style.opacity = Math.random() * 0.8 + 0.2;
-              
-              starsContainer.appendChild(star);
-          }
-          
-          // Create audio element for whoosh sound
-          const whooshSound = new Audio();
-          whooshSound.src = 'whoosh.mp3'; // Local file in the same folder as index.html
-          whooshSound.preload = 'auto';
-          
-          // Get all timeline points and cards
-          const timelinePoints = document.querySelectorAll('.timeline-point');
-          const cardContainers = document.querySelectorAll('.card-container');
-          const closeButtons = document.querySelectorAll('.close-btn');
-          
-       
-          // Function to hide all cards
-          function hideAllCards() {
-              cardContainers.forEach(container => {
-                  container.classList.remove('visible');
-              });
-          }
-          
-          // Point positions for each ID - hardcoded to match CSS
-          const pointPositions = {
-              'voice': 1000,
-              'coverage': 2200,
-              'interop': 3400,
-              'cost': 4600,
-              'data': 5400,
-              'resilience': 6800,
-              'collab': 8000,
-              'future': 9200
-          };
-          
-          // Variables to track the last clicked point
-          let lastClickedId = null;
-          let lastClickedPosition = null;
-          
-          // Get the ambulance element
-          const ambulance = document.getElementById('flying-ambulance');
-          
-          // Function to animate the ambulance between two points
-          function animateAmbulance(startX, endX) {
-              // Make the ambulance visible
-              ambulance.classList.add('active');
-              
-              // Make flames visible
-              const flames = document.getElementById('rocket-flames');
-              flames.classList.add('active');
-              
-              // Position the ambulance at the starting point
-              ambulance.style.left = `${startX}px`;
-              
-              // Position flames behind ambulance
-              flames.style.left = `${startX - 60}px`;
-              
-              // Determine direction
-              const goingRight = endX > startX;
-              
-              // Flip the ambulance if it's going left
-              if (!goingRight) {
-                  ambulance.style.transform = 'translateY(-100px) scaleX(-1)';
-                  flames.style.transform = 'translateY(-65px) scaleX(-1)';
-              } else {
-                  ambulance.style.transform = 'translateY(-100px)';
-                  flames.style.transform = 'translateY(-65px)';
-              }
-              
-              // Calculate animation duration based on distance
-              const distance = Math.abs(endX - startX);
-              const duration = Math.min(Math.max(distance / 500, 2), 10); // Between 2 and 10 seconds
-              
-              // Animate ambulance
-              ambulance.style.transition = `left ${duration}s ease, opacity 0.5s ease`;
-              
-              // Animate flames with same duration
-              flames.style.transition = `left ${duration}s ease, opacity 0.5s ease`;
-              
-              // Start the animation after a short delay
-              setTimeout(() => {
-                  ambulance.style.left = `${endX}px`;
-                  flames.style.left = `${endX - 60}px`;
-                  
-                  // Hide the ambulance and flames after the animation is complete
-                  setTimeout(() => {
-                      ambulance.classList.remove('active');
-                      flames.classList.remove('active');
-                  }, duration * 1000);
-              }, 100);
-          }
-          
-          // Function to show a specific card
-// Function to show a specific card
-function showCard(id) {
-    hideAllCards();
-    
-    // If we have a previous point, animate the ambulance
-    if (lastClickedId !== null && lastClickedId !== id) {
-        const startX = pointPositions[lastClickedId];
-        const endX = pointPositions[id];
+document.addEventListener('DOMContentLoaded', () => {
+    // Create stars for background
+    const starsContainer = document.getElementById('stars-container');
+    for (let i = 0; i < 500; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
         
-        // Animate the ambulance from the last point to the current one
-        animateAmbulance(startX, endX);
+        // Use viewport-relative positioning instead of absolute pixels
+        // This ensures stars appear across the entire visible area
+        // Random position across the entire width and height
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        
+        // Random size and opacity
+        const size = Math.random() * 3 + 1;
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.opacity = Math.random() * 0.8 + 0.2;
+        
+        starsContainer.appendChild(star);
     }
     
-    // Update the last clicked point
-    lastClickedId = id;
+    // Setup background music
+    const backgroundMusic = document.getElementById('background-music');
+    backgroundMusic.volume = 0.1; // Set volume to 30% (adjust as needed)
     
-    // Show the card after 2 second delay
-    setTimeout(() => {
-        const cardContainer = document.getElementById(id + '-card');
-        if (cardContainer) {
-            // Make the container visible
-            cardContainer.classList.add('visible');
-            
-            // Position the card relative to the clicked point
-            const card = cardContainer.querySelector('.card');
-            if (card) {
-                // Get the position for this point
-                const pointPosition = pointPositions[id];
-                const cardWidth = 2500; // Width of the card
-                
-                // Calculate the left position to center the card on the timeline point
-                let leftPosition = pointPosition - (cardWidth / 2);
-                
-                // Ensure card is not positioned too far to the left or right
-                leftPosition = Math.max(500, leftPosition);
-                leftPosition = Math.min(7000, leftPosition);
-                
-                // Set the position
-                card.style.left = `${leftPosition}px`;
-                card.style.top = '100px'; // Fixed vertical position
-            }
+    // Auto-play functionality with user interaction requirement
+    // Many browsers require user interaction before playing audio
+    const playBackgroundMusic = () => {
+        backgroundMusic.play().catch(error => {
+            console.log('Auto-play was prevented. Waiting for user interaction.');
+        });
+        
+        // Remove the event listeners once played
+        document.removeEventListener('click', playBackgroundMusic);
+        document.removeEventListener('keydown', playBackgroundMusic);
+    };
+    
+    // Try to play immediately (might be blocked by browser)
+    playBackgroundMusic();
+    
+    // Add event listeners to play music on first user interaction
+    document.addEventListener('click', playBackgroundMusic);
+    document.addEventListener('keydown', playBackgroundMusic);
+    
+    // Add music controls
+    const toggleMusic = () => {
+        if (backgroundMusic.paused) {
+            backgroundMusic.play();
+            musicButton.innerHTML = '🔊';
+        } else {
+            backgroundMusic.pause();
+            musicButton.innerHTML = '🔇';
         }
-    }, 2000); // 2 second delay
-}
-          
-          // Add click event listeners to timeline points
-          timelinePoints.forEach(point => {
-              point.addEventListener('click', function() {
-                  // Play whoosh sound
-                  whooshSound.currentTime = 0; // Reset sound to beginning
-                  whooshSound.play();
-                  
-                  const id = this.dataset.id;
-                  showCard(id);
-              });
-          });
-          
-          // Add click event listeners to close buttons
-          closeButtons.forEach(button => {
-              button.addEventListener('click', function(e) {
-                  // Stop propagation to prevent the event from bubbling up
-                  e.stopPropagation();
-                  const cardContainer = this.closest('.card-container');
-                  if (cardContainer) {
-                      cardContainer.classList.remove('visible');
-                  } else {
-                      hideAllCards();
-                  }
-              });
-          });
-          
-          // Close card when clicking outside the card content
-          cardContainers.forEach(container => {
-              container.addEventListener('click', function(e) {
-                  if (e.target === this) {
-                      hideAllCards();
-                  }
-              });
-          });
-          
-          // Escape key to close cards
-          document.addEventListener('keydown', function(e) {
-              if (e.key === 'Escape') {
-                  hideAllCards();
-              }
-          });
-          
-          // Arrow keys for navigation
-          document.addEventListener('keydown', function(e) {
-              if (e.key === 'ArrowLeft') {
-                  window.scrollBy({ left: -500, behavior: 'smooth' });
-              } else if (e.key === 'ArrowRight') {
-                  window.scrollBy({ left: 500, behavior: 'smooth' });
-              }
-          });
-      });
+    };
+    
+    // Create music toggle button
+    const musicButton = document.createElement('button');
+    musicButton.innerHTML = '🔊';
+    musicButton.className = 'music-toggle';
+    musicButton.style.position = 'fixed';
+    musicButton.style.top = '20px';
+    musicButton.style.right = '20px';
+    musicButton.style.zIndex = '1000';
+    musicButton.style.background = 'rgba(0,0,0,0.5)';
+    musicButton.style.color = 'white';
+    musicButton.style.border = 'none';
+    musicButton.style.borderRadius = '50%';
+    musicButton.style.width = '40px';
+    musicButton.style.height = '40px';
+    musicButton.style.cursor = 'pointer';
+    musicButton.onclick = toggleMusic;
+    document.body.appendChild(musicButton);
+    
+    // Create audio element for whoosh sound
+    const whooshSound = new Audio();
+    whooshSound.src = 'whoosh.mp3'; // Local file in the same folder as index.html
+    whooshSound.preload = 'auto';
+    
+    // Get all timeline points and cards
+    const timelinePoints = document.querySelectorAll('.timeline-point');
+    const cardContainers = document.querySelectorAll('.card-container');
+    const closeButtons = document.querySelectorAll('.close-btn');
+    
+    // Function to hide all cards
+    function hideAllCards() {
+        cardContainers.forEach(container => {
+            container.classList.remove('visible');
+        });
+    }
+    
+    // Point positions for each ID - hardcoded to match CSS
+    const pointPositions = {
+        'voice': 1000,
+        'coverage': 2200,
+        'interop': 3400,
+        'cost': 4600,
+        'data': 5400,
+        'resilience': 6800,
+        'collab': 8000,
+        'future': 9200
+    };
+    
+    // Variables to track the last clicked point
+    let lastClickedId = null;
+    let lastClickedPosition = null;
+    
+    // Get the ambulance element
+    const ambulance = document.getElementById('flying-ambulance');
+    
+    // Function to animate the ambulance between two points
+    function animateAmbulance(startX, endX) {
+        // Make the ambulance visible
+        ambulance.classList.add('active');
+        
+        // Make flames visible
+        const flames = document.getElementById('rocket-flames');
+        flames.classList.add('active');
+        
+        // Position the ambulance at the starting point
+        ambulance.style.left = `${startX}px`;
+        
+        // Position flames behind ambulance
+        flames.style.left = `${startX - 60}px`;
+        
+        // Determine direction
+        const goingRight = endX > startX;
+        
+        // Flip the ambulance if it's going left
+        if (!goingRight) {
+            ambulance.style.transform = 'translateY(-100px) scaleX(-1)';
+            flames.style.transform = 'translateY(-65px) scaleX(-1)';
+        } else {
+            ambulance.style.transform = 'translateY(-100px)';
+            flames.style.transform = 'translateY(-65px)';
+        }
+        
+        // Calculate animation duration based on distance
+        const distance = Math.abs(endX - startX);
+        const duration = Math.min(Math.max(distance / 500, 2), 10); // Between 2 and 10 seconds
+        
+        // Animate ambulance
+        ambulance.style.transition = `left ${duration}s ease, opacity 0.5s ease`;
+        
+        // Animate flames with same duration
+        flames.style.transition = `left ${duration}s ease, opacity 0.5s ease`;
+        
+        // Start the animation after a short delay
+        setTimeout(() => {
+            ambulance.style.left = `${endX}px`;
+            flames.style.left = `${endX - 60}px`;
+            
+            // Hide the ambulance and flames after the animation is complete
+            setTimeout(() => {
+                ambulance.classList.remove('active');
+                flames.classList.remove('active');
+            }, duration * 1000);
+        }, 100);
+    }
+    
+    // Function to show a specific card
+    function showCard(id) {
+        hideAllCards();
+        
+        // If we have a previous point, animate the ambulance
+        if (lastClickedId !== null && lastClickedId !== id) {
+            const startX = pointPositions[lastClickedId];
+            const endX = pointPositions[id];
+            
+            // Animate the ambulance from the last point to the current one
+            animateAmbulance(startX, endX);
+        }
+        
+        // Update the last clicked point
+        lastClickedId = id;
+        
+        // Show the card after 2 second delay
+        setTimeout(() => {
+            const cardContainer = document.getElementById(id + '-card');
+            if (cardContainer) {
+                // Make the container visible
+                cardContainer.classList.add('visible');
+                
+                // Position the card relative to the clicked point
+                const card = cardContainer.querySelector('.card');
+                if (card) {
+                    // Get the position for this point
+                    const pointPosition = pointPositions[id];
+                    const cardWidth = 2500; // Width of the card
+                    
+                    // Calculate the left position to center the card on the timeline point
+                    let leftPosition = pointPosition - (cardWidth / 2);
+                    
+                    // Ensure card is not positioned too far to the left or right
+                    leftPosition = Math.max(500, leftPosition);
+                    leftPosition = Math.min(7000, leftPosition);
+                    
+                    // Set the position
+                    card.style.left = `${leftPosition}px`;
+                    card.style.top = '100px'; // Fixed vertical position
+                }
+            }
+        }, 2000); // 2 second delay
+    }
+    
+    // Add click event listeners to timeline points
+    timelinePoints.forEach(point => {
+        point.addEventListener('click', function() {
+            // Play whoosh sound
+            whooshSound.currentTime = 0; // Reset sound to beginning
+            whooshSound.play();
+            
+            const id = this.dataset.id;
+            showCard(id);
+        });
+    });
+    
+    // Add click event listeners to close buttons
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Stop propagation to prevent the event from bubbling up
+            e.stopPropagation();
+            const cardContainer = this.closest('.card-container');
+            if (cardContainer) {
+                cardContainer.classList.remove('visible');
+            } else {
+                hideAllCards();
+            }
+        });
+    });
+    
+    // Close card when clicking outside the card content
+    cardContainers.forEach(container => {
+        container.addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideAllCards();
+            }
+        });
+    });
+    
+    // Escape key to close cards
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            hideAllCards();
+        }
+    });
+    
+    // Arrow keys for navigation
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowLeft') {
+            window.scrollBy({ left: -500, behavior: 'smooth' });
+        } else if (e.key === 'ArrowRight') {
+            window.scrollBy({ left: 500, behavior: 'smooth' });
+        }
+    });
+});
   </script>
 </body>
 </html>
@@ -1352,8 +1406,8 @@ function showCard(id) {
         </div>
         
         <div class="title-container">
-            <h1>The Evolution of Emergency Communications</h1>
-            <p class="subtitle">From Airwave to ESN: Transforming First Responder Technology</p>
+            <h1>The Intergalactic Evolution of Emergency Communications</h1>
+            <p class="subtitle">A Voyage through space from Airwave to ESN: Transforming First Responder Technology</p>
         </div>
         
         <div style="width: 200px;"></div> <!-- Spacer for alignment -->
@@ -1381,7 +1435,7 @@ function showCard(id) {
                 </div>
                 
                 <div class="timeline-point old-process point-interop" data-id="interop">
-                    <div class="point-icon">🔄</div>
+                    <div class="point-icon">💔</div>
                     <div class="point-label">Broken Bridges</div>
                 </div>
                 
@@ -1397,12 +1451,12 @@ function showCard(id) {
                 </div>
                 
                 <div class="timeline-point new-process point-resilience" data-id="resilience">
-                    <div class="point-icon">📊</div>
+                    <div class="point-icon">🛜</div>
                     <div class="point-label">Always Connected</div>
                 </div>
                 
                 <div class="timeline-point new-process point-collab" data-id="collab">
-                    <div class="point-icon">👥</div>
+                    <div class="point-icon">🤝</div>
                     <div class="point-label">Unified Response</div>
                 </div>
                 

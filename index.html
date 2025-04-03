@@ -475,7 +475,6 @@
         .close-btn::before {
             content: "×";
             font-size: 40px;
-            line-height: 1;
             color: white;
             position: absolute;
             top: 50%;
@@ -489,22 +488,25 @@
             flex-direction: column;
             overflow-y: auto;
             height: calc(100% - 120px);
+            padding: 40px;
         }
         
         .info-section {
             width: 100%;
-            padding: 40px;
             box-sizing: border-box;
             font-size: 24px;
         }
         
         .system-details {
             background: rgba(0, 0, 0, 0.2);
-            margin-bottom: 30px;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
         }
         
         .user-journey {
             background: rgba(0, 0, 0, 0.1);
+            padding: 40px;
             border-radius: 15px;
         }
         
@@ -928,13 +930,16 @@
                 });
             });
             
-            // Add click event listeners to close buttons - fixed functionality
+            // Add click event listeners to close buttons
             closeButtons.forEach(button => {
                 button.addEventListener('click', function(e) {
+                    // Stop propagation to prevent the event from bubbling up
                     e.stopPropagation();
                     const cardContainer = this.closest('.card-container');
                     if (cardContainer) {
                         cardContainer.classList.remove('visible');
+                    } else {
+                        hideAllCards();
                     }
                 });
             });

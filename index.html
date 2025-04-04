@@ -1,1615 +1,1807 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ESN Transformation Journey - Igloo 360° Experience</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap');
-        
-        :root {
-            --primary-color: #8a5bba; /* Purple */
-            --secondary-color: #000000; /* Black */
-            --accent-color: #4CAF50; /* Green */
-            --accent-blue: #00BCD4; /* Blue */
-            --background: #0b0b15;
-            --text-light: #ffffff;
-            --text-dark: #333333;
-            --card-bg: rgba(25, 25, 35, 0.95);
-        }
-        
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Arial, sans-serif;
-        }
-        
-        body {
-            color: var(--text-light);
-            overflow-x: scroll;
-            overflow-y: hidden;
-            width: 10000px;
-            height: 1000px;
-            position: relative;
-        }
-        
-        html {
-            background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a15 70%);
-            background-attachment: fixed;
-            background-size: cover;
-            min-height: 100vh;
-        }
-        
-        /* Header */
-        .esn-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            background: rgba(0, 0, 0, 0.5);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 100;
-        }
-        
-        .logo-container {
-            display: flex;
-            align-items: center;
-        }
-        
-        .esn-logo {
-            font-size: 42px;
-            font-weight: bold;
-            color: var(--text-light);
-            letter-spacing: 2px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .ibm-logo {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            font-weight: bold;
-            font-size: 48px;
-            color: #0062ff;
-            margin-right: 30px;
-            letter-spacing: -1px;
-        }
-        
-        .esn-dots {
-            display: flex;
-            align-items: center;
-            margin: 5px 0;
-        }
-        
-        .esn-dot {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            margin: 0 5px;
-        }
-        
-        .esn-dot.filled {
-            background-color: var(--secondary-color);
-        }
-        
-        .esn-dot.outline {
-            border: 2px solid var(--primary-color);
-            background-color: transparent;
-        }
-        
-        .esn-name {
-            font-size: 14px;
-            margin-top: 5px;
-            line-height: 1.2;
-        }
-        
-        .synergy-logo {
-            position: relative;
-            width: 60px;
-            height: 60px;
-            margin-left: 20px;
-        }
-        
-        .synergy-circle {
-            position: absolute;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-        }
-        
-        .synergy-green {
-            background-color: var(--accent-color);
-            top: 0;
-            right: 5px;
-        }
-        
-        .synergy-purple {
-            background-color: var(--primary-color);
-            bottom: 0;
-            right: 5px;
-        }
-        
-        .synergy-blue {
-            background-color: var(--accent-blue);
-            bottom: 0;
-            left: 5px;
-        }
-        
-        .synergy-black {
-            background-color: var(--secondary-color);
-            top: 0;
-            left: 5px;
-        }
-        
-        .title-container {
-            text-align: center;
-            width: 2000px; /* Wide title for 360 environment */
-        }
-        
-        .title-container h1 {
-            font-size: 60px;
-            font-weight: 300;
-            margin-bottom: 15px;
-        }
-        
-        .subtitle {
-            font-size: 32px;
-            color: rgba(255, 255, 255, 0.7);
-            font-weight: 300;
-        }
-        
-        /* Main Timeline Container */
-        .main-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 10000px;
-            height: 100%;
-            overflow: hidden;
-            z-index: 2;
-        }
-        
-        /* Background Elements */
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            z-index: 1;
-            pointer-events: none;
-        }
-        
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-        }
-        
-        /* Timeline */
-        .timeline-container {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            width: 10000px;
-            height: 200px;
-            transform: translateY(-50%);
-            z-index: 10;
-        }
-        
-        .timeline {
-            height: 8px;
-            background: linear-gradient(to right, 
-                rgba(0, 0, 0, 0.7) 0%, 
-                rgba(138, 91, 186, 0.7) 50%, 
-                rgba(0, 0, 0, 0.7) 100%);
-            background-size: 10000px 8px;
-            position: absolute;
-            top: 50%;
-            left: 200px;
-            right: 200px;
-            transform: translateY(-50%);
-        }
-        
-        .timeline::before {
-    content: "LEGACY AIRWAVE";
-    position: absolute;
-    left: 15%;  /* Change from 10% to 15% to move it right */
-    top: -80px;
-    color: var(--primary-color);
-    font-weight: bold;
-    font-size: 40px;
-    opacity: 0.8;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    font-family: 'Quicksand', sans-serif;
-}
-        
-        .timeline::after {
-            content: "NEW ESN SYSTEM";
-            position: absolute;
-            left: 50%;
-            transform: translateX(50px);
-            top: -80px;
-            color: var(--text-light);
-            font-weight: bold;
-            font-size: 40px;
-            opacity: 0.8;
-            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            font-family: 'Quicksand', sans-serif;
-        }
-        
-        .divider {
-            position: absolute;
-            top: -96px;
-            left: 50%;
-            height: 200px;
-            width: 6px;
-            background: var(--primary-color);
-            transform: translateX(-50%);
-            z-index: 11;
-        }
-        
-        .divider::before {
-            content: "";
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--primary-color);
-            transform: translateX(-50%);
-        }
-        
-        .divider::after {
-            content: "";
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: var(--primary-color);
-            transform: translateX(-50%);
-        }
-        
-        /* Timeline Points */
-        .timeline-point {
-            position: absolute;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 12;
-            transition: all 0.3s ease-out;
-            background: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-        }
-        
-        .timeline-point:hover {
-            transform: translate(-50%, -50%) scale(1.2);
-            box-shadow: 0 0 40px rgba(138, 91, 186, 0.8);
-        }
-        
-        .timeline-point.old-process {
-            border: 5px solid var(--secondary-color);
-        }
-        
-        .timeline-point.new-process {
-            border: 5px solid var(--primary-color);
-        }
-        
-        .point-icon {
-            font-size: 36px;
-            color: var(--text-light);
-        }
-        
-        /* Point locations for 10000px wide container */
-        .point-voice { left: 1000px; }
-        .point-coverage { left: 2200px; }
-        .point-interop { left: 3400px; }
-        .point-cost { left: 4600px; }
-        .point-data { left: 5400px; }
-        .point-resilience { left: 6800px; }
-        .point-collab { left: 8000px; }
-        .point-future { left: 9200px; }
-        
-        /* Ambulance Animation */
-        .ambulance {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-100px);
-            width: 160px;
-            height: 60px;
-            z-index: 15;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-        }
-        
-        .ambulance.active {
-            opacity: 1;
-        }
-        
-        .ambulance svg {
-            width: 100%;
-            height: 100%;
-        }
-        
-        @keyframes ambulanceLight {
-            0%, 100% { fill: #ff0000; }
-            50% { fill: #ff9999; }
-        }
-        
-        .ambulance-light {
-            animation: ambulanceLight 0.5s infinite;
-        }
-        
-        /* Rocket flames */
-        .rocket-flames {
-            position: absolute;
-            top: 50%;
-            width: 60px;
-            height: 30px;
-            transform: translateY(-65px);
-            z-index: 14; /* Below ambulance */
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-        }
-        
-        .rocket-flames.active {
-            opacity: 1;
-        }
-        
-        .rocket-flames svg {
-            width: 100%;
-            height: 100%;
-        }
-        
-        /* Cards */
-        .card-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 10000px;
-            height: 1000px;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
-            z-index: 20;
-            background: rgba(0, 0, 0, 0.8);
-        }
-        
-        .card-container.visible {
-            opacity: 1;
-            pointer-events: all;
-        }
-        
-        .card {
-            width: 2500px;
-            height: 800px;
-            background: var(--card-bg);
-            border-radius: 25px;
-            display: flex;
-            flex-direction: column;
-            position: absolute;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
-            transform: translateY(100px);
-            opacity: 0;
-            transition: transform 0.5s ease, opacity 0.5s ease;
-            /* Position will be set dynamically via JS */
-        }
-        
-        .card-container.visible .card {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        
-        .card-header {
-            padding: 30px 40px;
-            display: flex;
-            align-items: center;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-            height: 120px;
-        }
-        
-        .card-title {
-            flex-grow: 1;
-        }
-        
-        .card-title h2 {
-            margin-bottom: 10px;
-            font-weight: 400;
-            font-size: 48px;
-        }
-        
-        .system-badge {
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-size: 20px;
-            margin-top: 10px;
-            display: inline-block;
-            font-family: 'Quicksand', sans-serif;
-        }
-        
-        .system-badge.airwave {
-            background-color: rgba(138, 91, 186, 0.3);
-            color: white;
-        }
-        
-        .system-badge.esn {
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-        }
-        
-        .close-btn {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            position: relative;
-        }
-        
-        .close-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        .close-btn::before {
-            content: "×";
-            font-size: 40px;
-            color: white;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-        
-        .card-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            height: calc(100% - 120px);
-            padding: 40px;
-        }
-        
-        .info-section {
-            width: 100%;
-            box-sizing: border-box;
-            font-size: 24px;
-        }
-        
-        .system-details {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 40px;
-            border-radius: 15px;
-            margin-bottom: 40px;
-        }
-        
-        .user-journey {
-            background: rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            border-radius: 15px;
-        }
-        
-        .section-title {
-            font-size: 32px;
-            margin-bottom: 25px;
-            color: var(--primary-color);
-            display: flex;
-            align-items: center;
-        }
-        
-        .section-title i {
-            margin-right: 20px;
-            font-size: 32px;
-        }
-        
-        .comparison-container {
-            display: flex;
-            margin: 30px 0;
-            border-radius: 15px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .old-side, .new-side {
-            padding: 25px;
-            flex: 1;
-        }
-        
-        .old-side {
-            background-color: rgba(0, 0, 0, 0.2);
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .new-side {
-            background-color: rgba(138, 91, 186, 0.1);
-        }
-        
-        .comparison-label {
-            font-weight: bold;
-            margin-bottom: 15px;
-            font-size: 28px;
-        }
-        
-        .comparison-value {
-            font-size: 24px;
-            line-height: 1.5;
-        }
-        
-        .benefit-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin: 30px 0;
-        }
-        
-        .benefit-tag {
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-size: 22px;
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .metrics-container {
-            display: flex;
-            margin-top: 30px;
-            gap: 20px;
-        }
-        
-        .metric {
-            flex: 1;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-        }
-        
-        .metric-value {
-            font-size: 40px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        
-        .metric-label {
-            font-size: 22px;
-            color: rgba(255, 255, 255, 0.7);
-        }
-        
-        .user-story {
-            background: rgba(0, 0, 0, 0.1);
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            line-height: 1.7;
-        }
-        
-        .media-section {
-            margin: 30px 0;
-        }
-        
-        .media-placeholder {
-            background: rgba(0, 0, 0, 0.3);
-            width: 100%;
-            height: 300px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 24px;
-        }
-        
-      
+      @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap');
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+      :root {
+        --primary-color: #8a5bba; /* Purple */
+        --secondary-color: #000000; /* Black */
+        --accent-color: #4caf50; /* Green */
+        --accent-blue: #00bcd4; /* Blue */
+        --background: #0b0b15;
+        --text-light: #ffffff;
+        --text-dark: #333333;
+        --card-bg: rgba(25, 25, 35, 0.95);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+      }
+
+      body {
+        color: var(--text-light);
+        overflow-x: scroll;
+        overflow-y: hidden;
+        width: 10000px;
+        height: 1000px;
+        position: relative;
+      }
+
+      html {
+        background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a15 70%);
+        background-attachment: fixed;
+        background-size: cover;
+        min-height: 100vh;
+      }
+
+      /* Header */
+      .esn-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 40px;
+        background: rgba(0, 0, 0, 0.5);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+      }
+
+      .logo-container {
+        display: flex;
+        align-items: center;
+      }
+
+      .esn-logo {
+        font-size: 42px;
+        font-weight: bold;
+        color: var(--text-light);
+        letter-spacing: 2px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .ibm-logo {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        font-weight: bold;
+        font-size: 48px;
+        color: #0062ff;
+        margin-right: 30px;
+        letter-spacing: -1px;
+      }
+
+      .esn-dots {
+        display: flex;
+        align-items: center;
+        margin: 5px 0;
+      }
+
+      .esn-dot {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin: 0 5px;
+      }
+
+      .esn-dot.filled {
+        background-color: var(--secondary-color);
+      }
+
+      .esn-dot.outline {
+        border: 2px solid var(--primary-color);
+        background-color: transparent;
+      }
+
+      .esn-name {
+        font-size: 14px;
+        margin-top: 5px;
+        line-height: 1.2;
+      }
+
+      .synergy-logo {
+        position: relative;
+        width: 60px;
+        height: 60px;
+        margin-left: 20px;
+      }
+
+      .synergy-circle {
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+      }
+
+      .synergy-green {
+        background-color: var(--accent-color);
+        top: 0;
+        right: 5px;
+      }
+
+      .synergy-purple {
+        background-color: var(--primary-color);
+        bottom: 0;
+        right: 5px;
+      }
+
+      .synergy-blue {
+        background-color: var(--accent-blue);
+        bottom: 0;
+        left: 5px;
+      }
+
+      .synergy-black {
+        background-color: var(--secondary-color);
+        top: 0;
+        left: 5px;
+      }
+
+      .title-container {
+        text-align: center;
+        width: 2000px; /* Wide title for 360 environment */
+      }
+
+      .title-container h1 {
+        font-size: 60px;
+        font-weight: 300;
+        margin-bottom: 15px;
+      }
+
+      .subtitle {
+        font-size: 32px;
+        color: rgba(255, 255, 255, 0.7);
+        font-weight: 300;
+      }
+
+      /* Main Timeline Container */
+      .main-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 10000px;
+        height: 100%;
+        overflow: hidden;
+        z-index: 2;
+      }
+
+      /* Background Elements */
+      .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+      }
+
+      /* Timeline */
+      .timeline-container {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 10000px;
+        height: 200px;
+        transform: translateY(-50%);
+        z-index: 10;
+      }
+
+      .timeline {
+        height: 8px;
+        background: linear-gradient(
+          to right,
+          rgba(0, 0, 0, 0.7) 0%,
+          rgba(138, 91, 186, 0.7) 50%,
+          rgba(0, 0, 0, 0.7) 100%
+        );
+        background-size: 10000px 8px;
+        position: absolute;
+        top: 50%;
+        left: 200px;
+        right: 200px;
+        transform: translateY(-50%);
+      }
+
+      .timeline::before {
+        content: 'LEGACY AIRWAVE';
+        position: absolute;
+        left: 15%; /* Change from 10% to 15% to move it right */
+        top: -80px;
+        color: var(--primary-color);
+        font-weight: bold;
+        font-size: 40px;
+        opacity: 0.8;
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        font-family: 'Quicksand', sans-serif;
+      }
+
+      .timeline::after {
+        content: 'NEW ESN SYSTEM';
+        position: absolute;
+        left: 50%;
+        transform: translateX(50px);
+        top: -80px;
+        color: var(--text-light);
+        font-weight: bold;
+        font-size: 40px;
+        opacity: 0.8;
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        font-family: 'Quicksand', sans-serif;
+      }
+
+      .divider {
+        position: absolute;
+        top: -96px;
+        left: 50%;
+        height: 200px;
+        width: 6px;
+        background: var(--primary-color);
+        transform: translateX(-50%);
+        z-index: 11;
+      }
+
+      .divider::before {
+        content: '';
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        transform: translateX(-50%);
+      }
+
+      .divider::after {
+        content: '';
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        transform: translateX(-50%);
+      }
+
+      /* Timeline Points */
+      .timeline-point {
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 12;
+        transition: all 0.3s ease-out;
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+      }
+
+      .timeline-point:hover {
+        transform: translate(-50%, -50%) scale(1.2);
+        box-shadow: 0 0 40px rgba(138, 91, 186, 0.8);
+      }
+
+      .timeline-point.old-process {
+        border: 5px solid var(--secondary-color);
+      }
+
+      .timeline-point.new-process {
+        border: 5px solid var(--primary-color);
+      }
+
+      .point-icon {
+        font-size: 36px;
+        color: var(--text-light);
+      }
+
+      /* Point locations for 10000px wide container */
+      .point-voice {
+        left: 1000px;
+      }
+      .point-coverage {
+        left: 2200px;
+      }
+      .point-interop {
+        left: 3400px;
+      }
+      .point-cost {
+        left: 4600px;
+      }
+      .point-data {
+        left: 5400px;
+      }
+      .point-resilience {
+        left: 6800px;
+      }
+      .point-collab {
+        left: 8000px;
+      }
+      .point-future {
+        left: 9200px;
+      }
+
+      /* Ambulance Animation */
+      .ambulance {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-100px);
+        width: 160px;
+        height: 60px;
+        z-index: 15;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        pointer-events: none;
+      }
+
+      .ambulance.active {
+        opacity: 1;
+      }
+
+      .ambulance svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      @keyframes ambulanceLight {
+        0%,
+        100% {
+          fill: #ff0000;
         }
-        
-        @keyframes slideInRight {
-            from { transform: translateX(100px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+        50% {
+          fill: #ff9999;
         }
-        
-        @keyframes slideInLeft {
-            from { transform: translateX(-100px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+      }
+
+      .ambulance-light {
+        animation: ambulanceLight 0.5s infinite;
+      }
+
+      /* Rocket flames */
+      .rocket-flames {
+        position: absolute;
+        top: 50%;
+        width: 60px;
+        height: 30px;
+        transform: translateY(-65px);
+        z-index: 14; /* Below ambulance */
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        pointer-events: none;
+      }
+
+      .rocket-flames.active {
+        opacity: 1;
+      }
+
+      .rocket-flames svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      /* Cards */
+      .card-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 10000px;
+        height: 1000px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.5s ease;
+        z-index: 20;
+        background: rgba(0, 0, 0, 0.8);
+      }
+
+      .card-container.visible {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .card {
+        width: 2500px;
+        height: 800px;
+        background: var(--card-bg);
+        border-radius: 25px;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+        transform: translateY(100px);
+        opacity: 0;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+        /* Position will be set dynamically via JS */
+      }
+
+      .card-container.visible .card {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .card-header {
+        padding: 30px 40px;
+        display: flex;
+        align-items: center;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        height: 120px;
+      }
+
+      .card-title {
+        flex-grow: 1;
+      }
+
+      .card-title h2 {
+        margin-bottom: 10px;
+        font-weight: 400;
+        font-size: 48px;
+      }
+
+      .system-badge {
+        padding: 8px 20px;
+        border-radius: 30px;
+        font-size: 20px;
+        margin-top: 10px;
+        display: inline-block;
+        font-family: 'Quicksand', sans-serif;
+      }
+
+      .system-badge.airwave {
+        background-color: rgba(138, 91, 186, 0.3);
+        color: white;
+      }
+
+      .system-badge.esn {
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+      }
+
+      .close-btn {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        position: relative;
+      }
+
+      .close-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .close-btn::before {
+        content: '×';
+        font-size: 40px;
+        color: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .card-content {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        height: calc(100% - 120px);
+        padding: 40px;
+      }
+
+      .info-section {
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 24px;
+      }
+
+      .system-details {
+        background: rgba(0, 0, 0, 0.2);
+        padding: 40px;
+        border-radius: 15px;
+        margin-bottom: 40px;
+      }
+
+      .user-journey {
+        background: rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        border-radius: 15px;
+      }
+
+      .section-title {
+        font-size: 32px;
+        margin-bottom: 25px;
+        color: var(--primary-color);
+        display: flex;
+        align-items: center;
+      }
+
+      .section-title i {
+        margin-right: 20px;
+        font-size: 32px;
+      }
+
+      .comparison-container {
+        display: flex;
+        margin: 30px 0;
+        border-radius: 15px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .old-side,
+      .new-side {
+        padding: 25px;
+        flex: 1;
+      }
+
+      .old-side {
+        background-color: rgba(0, 0, 0, 0.2);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .new-side {
+        background-color: rgba(138, 91, 186, 0.1);
+      }
+
+      .comparison-label {
+        font-weight: bold;
+        margin-bottom: 15px;
+        font-size: 28px;
+      }
+
+      .comparison-value {
+        font-size: 24px;
+        line-height: 1.5;
+      }
+
+      .benefit-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin: 30px 0;
+      }
+
+      .benefit-tag {
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-size: 22px;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .metrics-container {
+        display: flex;
+        margin-top: 30px;
+        gap: 20px;
+      }
+
+      .metric {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.2);
+        padding: 25px;
+        border-radius: 15px;
+        text-align: center;
+      }
+
+      .metric-value {
+        font-size: 40px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .metric-label {
+        font-size: 22px;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .user-story {
+        background: rgba(0, 0, 0, 0.1);
+        padding: 25px;
+        border-radius: 15px;
+        margin-bottom: 30px;
+        line-height: 1.7;
+      }
+
+      .media-section {
+        margin: 30px 0;
+      }
+
+      .media-placeholder {
+        background: rgba(0, 0, 0, 0.3);
+        width: 100%;
+        height: 300px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 24px;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
         }
-        
-        .fade-in {
-            animation: fadeIn 0.5s ease forwards;
+        to {
+          opacity: 1;
         }
-        
-        .slide-in-right {
-            animation: slideInRight 0.5s ease forwards;
+      }
+
+      @keyframes slideInRight {
+        from {
+          transform: translateX(100px);
+          opacity: 0;
         }
-        
-        .slide-in-left {
-            animation: slideInLeft 0.5s ease forwards;
+        to {
+          transform: translateX(0);
+          opacity: 1;
         }
+      }
+
+      @keyframes slideInLeft {
+        from {
+          transform: translateX(-100px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      .fade-in {
+        animation: fadeIn 0.5s ease forwards;
+      }
+
+      .slide-in-right {
+        animation: slideInRight 0.5s ease forwards;
+      }
+
+      .slide-in-left {
+        animation: slideInLeft 0.5s ease forwards;
+      }
     </style>
-</head>
-<body>
-  <audio id="background-music" loop>
-    <source src="background-music.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-</audio>
+  </head>
+  <body>
+    <audio id="background-music" loop>
+      <source src="background-music.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
     <!-- Separate flames and ambulance elements -->
     <div id="rocket-flames" class="rocket-flames">
-        <svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0,0 L50,10 L60,15 L50,20 L0,30 Z" fill="#ff6600" />
-            <path d="M0,5 L40,10 L45,15 L40,20 L0,25 Z" fill="#ff9900" />
-            <path d="M0,10 L30,12 L32,15 L30,18 L0,20 Z" fill="#ffcc00" />
-        </svg>
+      <svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,0 L50,10 L60,15 L50,20 L0,30 Z" fill="#ff6600" />
+        <path d="M0,5 L40,10 L45,15 L40,20 L0,25 Z" fill="#ff9900" />
+        <path d="M0,10 L30,12 L32,15 L30,18 L0,20 Z" fill="#ffcc00" />
+      </svg>
     </div>
-    
+
     <div class="ambulance" id="flying-ambulance">
-        <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
-            <!-- Ambulance Body -->
-            <rect x="10" y="30" width="80" height="25" rx="5" fill="#ffffff" />
-            <!-- Cab -->
-            <rect x="10" y="20" width="30" height="10" rx="3" fill="#ffffff" />
-            <!-- Windows -->
-            <rect x="15" y="22" width="20" height="6" rx="1" fill="#a0e4ff" />
-            <!-- Front lights -->
-            <circle cx="10" cy="40" r="3" fill="#ffff00" />
-            <!-- Red cross -->
-            <rect x="50" y="35" width="16" height="4" fill="#ff0000" />
-            <rect x="56" y="29" width="4" height="16" fill="#ff0000" />
-            <!-- Wheels -->
-            <circle cx="25" cy="55" r="5" fill="#333333" />
-            <circle cx="75" cy="55" r="5" fill="#333333" />
-            <!-- Emergency lights -->
-            <rect x="20" y="15" width="12" height="5" rx="2" fill="#a0a0a0" />
-            <circle cx="24" cy="17" r="2" class="ambulance-light" />
-            <circle cx="28" cy="17" r="2" class="ambulance-light" />
-        </svg>
+      <svg viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+        <!-- Ambulance Body -->
+        <rect x="10" y="30" width="80" height="25" rx="5" fill="#ffffff" />
+        <!-- Cab -->
+        <rect x="10" y="20" width="30" height="10" rx="3" fill="#ffffff" />
+        <!-- Windows -->
+        <rect x="15" y="22" width="20" height="6" rx="1" fill="#a0e4ff" />
+        <!-- Front lights -->
+        <circle cx="10" cy="40" r="3" fill="#ffff00" />
+        <!-- Red cross -->
+        <rect x="50" y="35" width="16" height="4" fill="#ff0000" />
+        <rect x="56" y="29" width="4" height="16" fill="#ff0000" />
+        <!-- Wheels -->
+        <circle cx="25" cy="55" r="5" fill="#333333" />
+        <circle cx="75" cy="55" r="5" fill="#333333" />
+        <!-- Emergency lights -->
+        <rect x="20" y="15" width="12" height="5" rx="2" fill="#a0a0a0" />
+        <circle cx="24" cy="17" r="2" class="ambulance-light" />
+        <circle cx="28" cy="17" r="2" class="ambulance-light" />
+      </svg>
     </div>
 
     <!-- Header with logos and title -->
+    <!-- Header with logos and title -->
     <header class="esn-header">
-        <div class="logo-container">
-            <div class="ibm-logo">IBM</div>
-            <div class="esn-logo">
-                <div>ESN</div>
-                <div class="esn-dots">
-                    <div class="esn-dot outline"></div>
-                    <div class="esn-dot filled"></div>
-                    <div class="esn-dot outline"></div>
-                </div>
-            </div>
+      <div class="logo-container">
+        <div class="ibm-logo">IBM</div>
+        <div class="esn-logo">
+          <div>ESN</div>
+          <div class="esn-dots">
+            <div class="esn-dot outline"></div>
+            <div class="esn-dot filled"></div>
+            <div class="esn-dot outline"></div>
+          </div>
+          <div class="esn-name">Emergency<br />Services Network</div>
         </div>
+        <div class="synergy-logo">
+          <div class="synergy-circle synergy-black"></div>
+          <div class="synergy-circle synergy-green"></div>
+          <div class="synergy-circle synergy-blue"></div>
+          <div class="synergy-circle synergy-purple"></div>
+        </div>
+      </div>
+
+      <div class="title-container">
+        <h1>The Intergalactic Evolution of Emergency Communications</h1>
+        <p class="subtitle">
+          A Voyage through space from Airwave to ESN: Transforming First
+          Responder Technology
+        </p>
+      </div>
+
+      <div style="width: 200px"></div>
+      <!-- Spacer for alignment -->
+    </header>
+
+    <!-- Main timeline container -->
+    <div class="main-container">
+      <!-- Background stars -->
+      <div class="stars" id="stars-container"></div>
+
+      <!-- Timeline -->
+      <div class="timeline-container">
+        <div class="timeline">
+          <div class="divider"></div>
+
+          <!-- Legacy Airwave points -->
+          <div class="timeline-point old-process point-voice" data-id="voice">
+            <div class="point-icon">📞</div>
+            <div class="point-label">Reaching for Help</div>
+          </div>
+
+          <div
+            class="timeline-point old-process point-coverage"
+            data-id="coverage"
+          >
+            <div class="point-icon">📡</div>
+            <div class="point-label">Signal Lost</div>
+          </div>
+
+          <div
+            class="timeline-point old-process point-interop"
+            data-id="interop"
+          >
+            <div class="point-icon">💔</div>
+            <div class="point-label">Broken Bridges</div>
+          </div>
+
+          <div class="timeline-point old-process point-cost" data-id="cost">
+            <div class="point-icon">💰</div>
+            <div class="point-label">Budget Barriers</div>
+          </div>
+
+          <!-- New ESN points -->
+          <div class="timeline-point new-process point-data" data-id="data">
+            <div class="point-icon">📱</div>
+            <div class="point-label">Data in Motion</div>
+          </div>
+
+          <div
+            class="timeline-point new-process point-resilience"
+            data-id="resilience"
+          >
+            <div class="point-icon">🛜</div>
+            <div class="point-label">Always Connected</div>
+          </div>
+
+          <div class="timeline-point new-process point-collab" data-id="collab">
+            <div class="point-icon">🤝</div>
+            <div class="point-label">Unified Response</div>
+          </div>
+
+          <div class="timeline-point new-process point-future" data-id="future">
+            <div class="point-icon">🚀</div>
+            <div class="point-label">Evolution Unleashed</div>
+          </div>
+        </div>
+      </div>
     </div>
-    
+
+    <!-- Future Card -->
+    <div class="card-container" id="future-card">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <h2>Evolution Unleashed</h2>
+            <div class="system-badge esn">New ESN</div>
+          </div>
+          <div class="close-btn"></div>
+        </div>
+        <div class="card-content">
+          <div class="info-section system-details">
+            <div class="section-title"><i>📊</i> System Capabilities</div>
+            <p>
+              ESN significantly reduces the total cost of ownership while
+              providing a platform that will continuously evolve with new
+              capabilities over time.
+            </p>
+
+            <div class="comparison-container">
+              <div class="old-side">
+                <div class="comparison-label">Airwave System</div>
+                <div class="comparison-value">
+                  High device costs, expensive service charges, proprietary
+                  technology with limited upgrade paths
+                </div>
+              </div>
+              <div class="new-side">
+                <div class="comparison-label">ESN Solution</div>
+                <div class="comparison-value">
+                  Competitive device market, shared infrastructure costs,
+                  continuous technological evolution aligned with commercial
+                  standards
+                </div>
+              </div>
+            </div>
+
+            <div class="benefit-tags">
+              <div class="benefit-tag">Long-Term Savings</div>
+              <div class="benefit-tag">Continuous Improvement</div>
+              <div class="benefit-tag">Future-Proof Technology</div>
+            </div>
+
+            <div class="metrics-container">
+              <div class="metric">
+                <div class="metric-value">£200M+</div>
+                <div class="metric-label">Annual Savings</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">£900+</div>
+                <div class="metric-label">Per Device Cost</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">Continuous</div>
+                <div class="metric-label">Technology Updates</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-section user-journey">
+            <div class="section-title"><i>👤</i> Alex's Experience</div>
+
+            <div class="user-story">
+              <p>
+                After treating the patient using guidance from the ESN-connected
+                physician, Alex prepares to transport them to the hospital.
+                Using the ESN device, Alex transmits the patient's complete
+                vital signs, treatment information, and images to the emergency
+                department. The hospital staff prepare exactly what's needed
+                before arrival. Alex's ambulance trust has been able to equip
+                all staff with ESN devices due to the significant cost savings
+                compared to Airwave. The multipurpose ESN device replaces
+                several separate devices Alex previously carried. Last month, a
+                software update added new functionality to Alex's device without
+                requiring any hardware changes, including enhanced location
+                tracking inside buildings and integration with the hospital's
+                patient management system.
+              </p>
+            </div>
+
+            <div class="media-section">
+              <div class="section-title">
+                <i>🎬</i> Experience Visualization
+              </div>
+              <div class="media-placeholder">
+                [Interactive future capabilities demonstration]
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Collaboration Card -->
+    <div class="card-container" id="collab-card">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <h2>Unified Response</h2>
+            <div class="system-badge esn">New ESN</div>
+          </div>
+          <div class="close-btn"></div>
+        </div>
+        <div class="card-content">
+          <div class="info-section system-details">
+            <div class="section-title"><i>📊</i> System Capabilities</div>
+            <p>
+              ESN enables unprecedented interoperability between emergency
+              services and partner agencies, breaking down communication
+              barriers during complex incidents.
+            </p>
+
+            <div class="comparison-container">
+              <div class="old-side">
+                <div class="comparison-label">Airwave System</div>
+                <div class="comparison-value">
+                  Pre-configured talk groups, manual patching between agencies,
+                  incompatible with non-Airwave users
+                </div>
+              </div>
+              <div class="new-side">
+                <div class="comparison-label">ESN Solution</div>
+                <div class="comparison-value">
+                  Dynamic group creation, seamless cross-agency communication,
+                  integration with standard mobile devices, cross-border
+                  capabilities
+                </div>
+              </div>
+            </div>
+
+            <div class="benefit-tags">
+              <div class="benefit-tag">Instant Coordination</div>
+              <div class="benefit-tag">Unified Communication</div>
+              <div class="benefit-tag">Wider Collaboration</div>
+            </div>
+
+            <div class="metrics-container">
+              <div class="metric">
+                <div class="metric-value">Minutes</div>
+                <div class="metric-label">Multi-Agency Setup</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">Unlimited</div>
+                <div class="metric-label">Agency Integration</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">Seamless</div>
+                <div class="metric-label">Cross-Border Operations</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-section user-journey">
+            <div class="section-title"><i>👤</i> Alex's Experience</div>
+
+            <div class="user-story">
+              <p>
+                The chemical spill incident now requires coordination with fire
+                services and hazmat teams. Using ESN, Alex is immediately added
+                to a dynamic incident talk group that includes all responding
+                agencies. The control room creates this group in seconds, with
+                no delay in establishing communications. When the volunteer
+                doctor arrives, they can join the ESN group using their standard
+                smartphone with the ESN app. The doctor reviews the patient's
+                vital signs remotely and provides direct guidance to Alex
+                through video call while still en route. Alex shares photos of
+                the chemical containers with the hazmat team, who immediately
+                identify the substance and send proper treatment protocols
+                directly to Alex's device.
+              </p>
+            </div>
+
+            <div class="media-section">
+              <div class="section-title">
+                <i>🎬</i> Experience Visualization
+              </div>
+              <div class="media-placeholder">
+                [Interactive multi-agency coordination visualization]
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resilience Card -->
+    <div class="card-container" id="resilience-card">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <h2>Always Connected</h2>
+            <div class="system-badge esn">New ESN</div>
+          </div>
+          <div class="close-btn"></div>
+        </div>
+        <div class="card-content">
+          <div class="info-section system-details">
+            <div class="section-title"><i>📊</i> System Capabilities</div>
+            <p>
+              ESN leverages commercial 4G networks enhanced with dedicated
+              coverage solutions to provide comprehensive service even in
+              challenging environments.
+            </p>
+
+            <div class="comparison-container">
+              <div class="old-side">
+                <div class="comparison-label">Airwave System</div>
+                <div class="comparison-value">
+                  Fixed infrastructure with predetermined coverage areas and
+                  limited in-building penetration
+                </div>
+              </div>
+              <div class="new-side">
+                <div class="comparison-label">ESN Solution</div>
+                <div class="comparison-value">
+                  Continuously expanding 4G/5G coverage, deployable mobile
+                  coverage units, enhanced building penetration, satellite
+                  backup options
+                </div>
+              </div>
+            </div>
+
+            <div class="benefit-tags">
+              <div class="benefit-tag">Extended Reach</div>
+              <div class="benefit-tag">Flexible Coverage</div>
+              <div class="benefit-tag">Multiple Redundancies</div>
+            </div>
+
+            <div class="metrics-container">
+              <div class="metric">
+                <div class="metric-value">99%+</div>
+                <div class="metric-label">Population Coverage</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">97%</div>
+                <div class="metric-label">Geographic Coverage</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">Enhanced</div>
+                <div class="metric-label">Indoor Penetration</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-section user-journey">
+            <div class="section-title"><i>👤</i> Alex's Experience</div>
+
+            <div class="user-story">
+              <p>
+                Traveling to the accident site with ESN, Alex maintains
+                consistent communication throughout the rural journey. The
+                commercial network coverage has been enhanced with dedicated ESN
+                sites in rural areas. Upon arriving at the remote farm, Alex
+                discovers the incident is inside a large metal barn, but the ESN
+                device automatically switches to a vehicle-mounted gateway that
+                boosts the signal. Inside the barn, Alex maintains full contact
+                with the control room, sharing regular updates about the patient
+                without interruption. When the control room needs to share
+                critical information about hazardous materials, the message gets
+                through clearly.
+              </p>
+            </div>
+
+            <div class="media-section">
+              <div class="section-title">
+                <i>🎬</i> Experience Visualization
+              </div>
+              <div class="media-placeholder">
+                [Interactive coverage comparison map]
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Card -->
+    <div class="card-container" id="data-card">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <h2>Data in Motion</h2>
+            <div class="system-badge esn">New ESN</div>
+          </div>
+          <div class="close-btn"></div>
+        </div>
+        <div class="card-content">
+          <div class="info-section system-details">
+            <div class="section-title"><i>📊</i> System Capabilities</div>
+            <p>
+              ESN provides high-speed data services that enable emergency
+              responders to access critical information in the field and share
+              rich media in real-time.
+            </p>
+
+            <div class="comparison-container">
+              <div class="old-side">
+                <div class="comparison-label">Airwave System</div>
+                <div class="comparison-value">
+                  Text-only status messages, basic GPS location, no multimedia
+                  support
+                </div>
+              </div>
+              <div class="new-side">
+                <div class="comparison-label">ESN Solution</div>
+                <div class="comparison-value">
+                  Live video streaming, high-resolution images, real-time
+                  location tracking, access to operational databases and
+                  applications
+                </div>
+              </div>
+            </div>
+
+            <div class="benefit-tags">
+              <div class="benefit-tag">Real-Time Intelligence</div>
+              <div class="benefit-tag">Rich Media Sharing</div>
+              <div class="benefit-tag">Operational Efficiency</div>
+            </div>
+
+            <div class="metrics-container">
+              <div class="metric">
+                <div class="metric-value">100+ Mbps</div>
+                <div class="metric-label">Data Speed</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">HD Video</div>
+                <div class="metric-label">Streaming Quality</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">Full</div>
+                <div class="metric-label">App Integration</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-section user-journey">
+            <div class="section-title"><i>👤</i> Alex's Experience</div>
+
+            <div class="user-story">
+              <p>
+                Alex, now using ESN, receives an emergency call about a serious
+                accident. Before arriving, dispatch sends photos of the scene
+                and a short video from a bystander, giving Alex a clear
+                understanding of the situation. The control room shares the
+                patient's medical history directly to Alex's device. En route,
+                Alex views live footage from a police helicopter overhead,
+                helping identify the safest approach route. Alex can prepare
+                specifically for what they'll encounter, arriving better
+                equipped and mentally prepared for the emergency.
+              </p>
+            </div>
+
+            <div class="media-section">
+              <div class="section-title">
+                <i>🎬</i> Experience Visualization
+              </div>
+              <div class="media-placeholder">
+                [Interactive data capabilities demonstration]
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cost Card -->
+    <div class="card-container" id="cost-card">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <h2>Budget Barriers</h2>
+            <div class="system-badge airwave">Legacy Airwave</div>
+          </div>
+          <div class="close-btn"></div>
+        </div>
+        <div class="card-content">
+          <div class="info-section system-details">
+            <div class="section-title"><i>📊</i> System Limitations</div>
+            <p>
+              The Airwave service has high operational costs with limited
+              potential for technological evolution, creating a financial burden
+              and capability ceiling for emergency services.
+            </p>
+
+            <div class="comparison-container">
+              <div class="old-side">
+                <div class="comparison-label">Airwave System</div>
+                <div class="comparison-value">
+                  Proprietary technology with expensive end-of-life equipment,
+                  high service charges, and minimal innovation potential
+                </div>
+              </div>
+              <div class="new-side">
+                <div class="comparison-label">ESN Solution</div>
+                <div class="comparison-value">
+                  Commercial mobile technology leveraging economies of scale,
+                  competitive device market, and continuous technology evolution
+                </div>
+              </div>
+            </div>
+
+            <div class="benefit-tags">
+              <div class="benefit-tag">End-of-Life Technology</div>
+              <div class="benefit-tag">High Service Charges</div>
+              <div class="benefit-tag">Limited Innovation</div>
+            </div>
+
+            <div class="metrics-container">
+              <div class="metric">
+                <div class="metric-value">£370M</div>
+                <div class="metric-label">Annual Cost</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">£3,500+</div>
+                <div class="metric-label">Per Device Cost</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">Minimal</div>
+                <div class="metric-label">Future Capabilities</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-section user-journey">
+            <div class="section-title"><i>👤</i> Alex's Experience</div>
+
+            <div class="user-story">
+              <p>
+                After treating the patient, Alex needs to transfer them to the
+                hospital. Alex wants to send patient vitals ahead to the
+                emergency department but can't transmit this data through
+                Airwave. The ambulance trust can't afford to upgrade their
+                equipment due to the high costs of Airwave devices and service
+                charges. Alex's Airwave handset is bulky and only serves a
+                single purpose, requiring them to carry multiple devices for
+                different functions. The trust has been told that no new
+                features will be added to the Airwave system, as it's
+                approaching end-of-life.
+              </p>
+            </div>
+
+            <div class="media-section">
+              <div class="section-title">
+                <i>🎬</i> Experience Visualization
+              </div>
+              <div class="media-placeholder">
+                [Interactive cost comparison visualization]
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interoperability Card -->
+    <div class="card-container" id="interop-card">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <h2>Broken Bridges</h2>
+            <div class="system-badge airwave">Legacy Airwave</div>
+          </div>
+          <div class="close-btn"></div>
+        </div>
+        <div class="card-content">
+          <div class="info-section system-details">
+            <div class="section-title"><i>📊</i> System Limitations</div>
+            <p>
+              Airwave offers limited interoperability between different
+              emergency services and external agencies, creating communication
+              silos during multi-agency incidents.
+            </p>
+
+            <div class="comparison-container">
+              <div class="old-side">
+                <div class="comparison-label">Airwave System</div>
+                <div class="comparison-value">
+                  Separate talk groups with manual configuration required for
+                  cross-agency communication, limited to agencies with Airwave
+                  terminals
+                </div>
+              </div>
+              <div class="new-side">
+                <div class="comparison-label">ESN Solution</div>
+                <div class="comparison-value">
+                  Seamless multi-agency operations with dynamic talk groups,
+                  interoperability with standard mobile devices, and easy
+                  integration with partner agencies
+                </div>
+              </div>
+            </div>
+
+            <div class="benefit-tags">
+              <div class="benefit-tag">Siloed Communication</div>
+              <div class="benefit-tag">Manual Configuration</div>
+              <div class="benefit-tag">Agency Barriers</div>
+            </div>
+
+            <div class="metrics-container">
+              <div class="metric">
+                <div class="metric-value">Hours</div>
+                <div class="metric-label">Setup Time for Joint Ops</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">Limited</div>
+                <div class="metric-label">External Agency Access</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">Manual</div>
+                <div class="metric-label">Cross-Border Coordination</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-section user-journey">
+            <div class="section-title"><i>👤</i> Alex's Experience</div>
+
+            <div class="user-story">
+              <p>
+                The accident involves a chemical spill, requiring fire services
+                and specialized hazmat teams. Alex needs to coordinate with
+                these units, but their Airwave systems are configured on
+                different talk groups. The control room must manually patch
+                these groups together, causing a 20-minute delay in establishing
+                joint communications. When a volunteer doctor arrives to assist,
+                they can't communicate directly with Alex because they don't
+                have an Airwave terminal. Alex must relay all medical
+                information verbally and can't receive direct guidance from the
+                specialized physician.
+              </p>
+            </div>
+
+            <div class="media-section">
+              <div class="section-title">
+                <i>🎬</i> Experience Visualization
+              </div>
+              <div class="media-placeholder">
+                [Interactive visualization of siloed communications]
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cards for each point -->
+    <!-- Voice Card -->
+    <div class="card-container" id="voice-card">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <h2>Reaching for Help</h2>
+            <div class="system-badge airwave">Legacy Airwave</div>
+          </div>
+          <div class="close-btn"></div>
+        </div>
+        <div class="card-content">
+          <div class="info-section system-details">
+            <div class="section-title"><i>📊</i> System Limitations</div>
+            <p>
+              The legacy Airwave system primarily supports voice communication
+              with limited data capabilities, constraining operational
+              efficiency and situational awareness.
+            </p>
+
+            <div class="comparison-container">
+              <div class="old-side">
+                <div class="comparison-label">Airwave System</div>
+                <div class="comparison-value">
+                  Push-to-talk radio communication with basic status messaging
+                  and limited data transfer rates (up to 28.8 kbps)
+                </div>
+              </div>
+              <div class="new-side">
+                <div class="comparison-label">ESN Solution</div>
+                <div class="comparison-value">
+                  Integrated voice with high-speed data transfer (4G/5G)
+                  supporting real-time video, images, and location sharing
+                </div>
+              </div>
+            </div>
+
+            <div class="benefit-tags">
+              <div class="benefit-tag">Voice-Centric</div>
+              <div class="benefit-tag">Limited Bandwidth</div>
+              <div class="benefit-tag">Restricted Functionality</div>
+            </div>
+
+            <div class="metrics-container">
+              <div class="metric">
+                <div class="metric-value">28.8</div>
+                <div class="metric-label">Max kbps Data Rate</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">Voice</div>
+                <div class="metric-label">Primary Function</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">0</div>
+                <div class="metric-label">Video Capability</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-section user-journey">
+            <div class="section-title"><i>👤</i> Alex's Experience</div>
+
+            <div class="user-story">
+              <p>
+                Alex, a paramedic, receives an emergency call about a serious
+                accident. Using Airwave, Alex can only receive basic information
+                via voice. When asking for more details about the patient's
+                condition, the dispatcher can only relay verbal descriptions.
+                Alex must imagine the scene based on limited information and
+                prepare accordingly, potentially missing critical details.
+              </p>
+            </div>
+
+            <div class="media-section">
+              <div class="section-title">
+                <i>🎬</i> Experience Visualization
+              </div>
+              <div class="media-placeholder">
+                [Interactive visualization of communication limitations]
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coverage Card -->
+    <div class="card-container" id="coverage-card">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <h2>Signal Lost</h2>
+            <div class="system-badge airwave">Legacy Airwave</div>
+          </div>
+          <div class="close-btn"></div>
+        </div>
+        <div class="card-content">
+          <div class="info-section system-details">
+            <div class="section-title"><i>📊</i> System Limitations</div>
+            <p>
+              Airwave provides dedicated coverage but has gaps in rural areas
+              and inside buildings. The system's infrastructure is aging and
+              increasingly difficult to maintain.
+            </p>
+
+            <div class="comparison-container">
+              <div class="old-side">
+                <div class="comparison-label">Airwave System</div>
+                <div class="comparison-value">
+                  Purpose-built network with static coverage maps and limited
+                  flexibility for expansion or improvement
+                </div>
+              </div>
+              <div class="new-side">
+                <div class="comparison-label">ESN Solution</div>
+                <div class="comparison-value">
+                  Leverages commercial mobile networks with continuous
+                  improvements, dedicated coverage vehicles, and additional
+                  solutions for challenging environments
+                </div>
+              </div>
+            </div>
+
+            <div class="benefit-tags">
+              <div class="benefit-tag">Coverage Gaps</div>
+              <div class="benefit-tag">Static Infrastructure</div>
+              <div class="benefit-tag">Limited Redundancy</div>
+            </div>
+
+            <div class="metrics-container">
+              <div class="metric">
+                <div class="metric-value">97%</div>
+                <div class="metric-label">Population Coverage</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">70%</div>
+                <div class="metric-label">Rural Coverage</div>
+              </div>
+              <div class="metric">
+                <div class="metric-value">Limited</div>
+                <div class="metric-label">Indoor Penetration</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-section user-journey">
+            <div class="section-title"><i>👤</i> Alex's Experience</div>
+
+            <div class="user-story">
+              <p>
+                En route to the accident scene, Alex travels through a rural
+                area with patchy Airwave coverage. The communication drops
+                several times, causing Alex to miss important updates from
+                dispatch. When arriving at a remote farm, Alex discovers the
+                incident is inside a large metal barn where radio signal barely
+                penetrates. Communication with the control room becomes
+                intermittent, forcing Alex to step outside repeatedly to provide
+                updates on the patient's condition.
+              </p>
+            </div>
+
+            <div class="media-section">
+              <div class="section-title">
+                <i>🎬</i> Experience Visualization
+              </div>
+              <div class="media-placeholder">
+                [Interactive coverage map showing signal loss areas]
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- JavaScript for interactions -->
     <script>
-document.addEventListener('DOMContentLoaded', () => {
-    // Create stars for background
-    const starsContainer = document.getElementById('stars-container');
-    for (let i = 0; i < 500; i++) {
-        const star = document.createElement('div');
-        star.className = 'star';
-        
-        // Use viewport-relative positioning instead of absolute pixels
-        // This ensures stars appear across the entire visible area
-        // Random position across the entire width and height
-        star.style.left = `${Math.random() * 100}%`;
-        star.style.top = `${Math.random() * 100}%`;
-        
-        // Random size and opacity
-        const size = Math.random() * 3 + 1;
-        star.style.width = `${size}px`;
-        star.style.height = `${size}px`;
-        star.style.opacity = Math.random() * 0.8 + 0.2;
-        
-        starsContainer.appendChild(star);
-    }
-    
-    // Setup background music
-    const backgroundMusic = document.getElementById('background-music');
-    backgroundMusic.volume = 0.1; // Set volume to 30% (adjust as needed)
-    
-    // Auto-play functionality with user interaction requirement
-    // Many browsers require user interaction before playing audio
-    const playBackgroundMusic = () => {
-        backgroundMusic.play().catch(error => {
-            console.log('Auto-play was prevented. Waiting for user interaction.');
-        });
-        
-        // Remove the event listeners once played
-        document.removeEventListener('click', playBackgroundMusic);
-        document.removeEventListener('keydown', playBackgroundMusic);
-    };
-    
-    // Try to play immediately (might be blocked by browser)
-    playBackgroundMusic();
-    
-    // Add event listeners to play music on first user interaction
-    document.addEventListener('click', playBackgroundMusic);
-    document.addEventListener('keydown', playBackgroundMusic);
-    
-    // Add music controls
-    const toggleMusic = () => {
-        if (backgroundMusic.paused) {
+      document.addEventListener('DOMContentLoaded', () => {
+        // Create stars for background
+        const starsContainer = document.getElementById('stars-container');
+        for (let i = 0; i < 500; i++) {
+          const star = document.createElement('div');
+          star.className = 'star';
+
+          // Use viewport-relative positioning instead of absolute pixels
+          // This ensures stars appear across the entire visible area
+          // Random position across the entire width and height
+          star.style.left = `${Math.random() * 100}%`;
+          star.style.top = `${Math.random() * 100}%`;
+
+          // Random size and opacity
+          const size = Math.random() * 3 + 1;
+          star.style.width = `${size}px`;
+          star.style.height = `${size}px`;
+          star.style.opacity = Math.random() * 0.8 + 0.2;
+
+          starsContainer.appendChild(star);
+        }
+
+        // Setup background music
+        const backgroundMusic = document.getElementById('background-music');
+        backgroundMusic.volume = 0.1; // Set volume to 30% (adjust as needed)
+
+        // Auto-play functionality with user interaction requirement
+        // Many browsers require user interaction before playing audio
+        const playBackgroundMusic = () => {
+          backgroundMusic.play().catch(error => {
+            console.log(
+              'Auto-play was prevented. Waiting for user interaction.'
+            );
+          });
+
+          // Remove the event listeners once played
+          document.removeEventListener('click', playBackgroundMusic);
+          document.removeEventListener('keydown', playBackgroundMusic);
+        };
+
+        // Try to play immediately (might be blocked by browser)
+        playBackgroundMusic();
+
+        // Add event listeners to play music on first user interaction
+        document.addEventListener('click', playBackgroundMusic);
+        document.addEventListener('keydown', playBackgroundMusic);
+
+        // Add music controls
+        const toggleMusic = () => {
+          if (backgroundMusic.paused) {
             backgroundMusic.play();
             musicButton.innerHTML = '🔊';
-        } else {
+          } else {
             backgroundMusic.pause();
             musicButton.innerHTML = '🔇';
-        }
-    };
-    
-    // Create music toggle button
-    const musicButton = document.createElement('button');
-    musicButton.innerHTML = '🔊';
-    musicButton.className = 'music-toggle';
-    musicButton.style.position = 'fixed';
-    musicButton.style.top = '20px';
-    musicButton.style.right = '20px';
-    musicButton.style.zIndex = '1000';
-    musicButton.style.background = 'rgba(0,0,0,0.5)';
-    musicButton.style.color = 'white';
-    musicButton.style.border = 'none';
-    musicButton.style.borderRadius = '50%';
-    musicButton.style.width = '40px';
-    musicButton.style.height = '40px';
-    musicButton.style.cursor = 'pointer';
-    musicButton.onclick = toggleMusic;
-    document.body.appendChild(musicButton);
-    
-    // Create audio element for whoosh sound
-    const whooshSound = new Audio();
-    whooshSound.src = 'whoosh.mp3'; // Local file in the same folder as index.html
-    whooshSound.preload = 'auto';
-    
-    // Get all timeline points and cards
-    const timelinePoints = document.querySelectorAll('.timeline-point');
-    const cardContainers = document.querySelectorAll('.card-container');
-    const closeButtons = document.querySelectorAll('.close-btn');
-    
-    // Function to hide all cards
-    function hideAllCards() {
-        cardContainers.forEach(container => {
+          }
+        };
+
+        // Create music toggle button
+        const musicButton = document.createElement('button');
+        musicButton.innerHTML = '🔊';
+        musicButton.className = 'music-toggle';
+        musicButton.style.position = 'fixed';
+        musicButton.style.top = '20px';
+        musicButton.style.right = '20px';
+        musicButton.style.zIndex = '1000';
+        musicButton.style.background = 'rgba(0,0,0,0.5)';
+        musicButton.style.color = 'white';
+        musicButton.style.border = 'none';
+        musicButton.style.borderRadius = '50%';
+        musicButton.style.width = '40px';
+        musicButton.style.height = '40px';
+        musicButton.style.cursor = 'pointer';
+        musicButton.onclick = toggleMusic;
+        document.body.appendChild(musicButton);
+
+        // Create audio element for whoosh sound
+        const whooshSound = new Audio();
+        whooshSound.src = 'whoosh.mp3'; // Local file in the same folder as index.html
+        whooshSound.preload = 'auto';
+
+        // Get all timeline points and cards
+        const timelinePoints = document.querySelectorAll('.timeline-point');
+        const cardContainers = document.querySelectorAll('.card-container');
+        const closeButtons = document.querySelectorAll('.close-btn');
+
+        // Function to hide all cards
+        function hideAllCards() {
+          cardContainers.forEach(container => {
             container.classList.remove('visible');
-        });
-    }
-    
-    // Point positions for each ID - hardcoded to match CSS
-    const pointPositions = {
-        'voice': 1000,
-        'coverage': 2200,
-        'interop': 3400,
-        'cost': 4600,
-        'data': 5400,
-        'resilience': 6800,
-        'collab': 8000,
-        'future': 9200
-    };
-    
-    // Variables to track the last clicked point
-    let lastClickedId = null;
-    let lastClickedPosition = null;
-    
-    // Get the ambulance element
-    const ambulance = document.getElementById('flying-ambulance');
-    
-    // Function to animate the ambulance between two points
-    function animateAmbulance(startX, endX) {
-        // Make the ambulance visible
-        ambulance.classList.add('active');
-        
-        // Make flames visible
-        const flames = document.getElementById('rocket-flames');
-        flames.classList.add('active');
-        
-        // Position the ambulance at the starting point
-        ambulance.style.left = `${startX}px`;
-        
-        // Position flames behind ambulance
-        flames.style.left = `${startX - 60}px`;
-        
-        // Determine direction
-        const goingRight = endX > startX;
-        
-        // Flip the ambulance if it's going left
-        if (!goingRight) {
+          });
+        }
+
+        // Point positions for each ID - hardcoded to match CSS
+        const pointPositions = {
+          voice: 1000,
+          coverage: 2200,
+          interop: 3400,
+          cost: 4600,
+          data: 5400,
+          resilience: 6800,
+          collab: 8000,
+          future: 9200,
+        };
+
+        // Variables to track the last clicked point
+        let lastClickedId = null;
+        let lastClickedPosition = null;
+
+        // Get the ambulance element
+        const ambulance = document.getElementById('flying-ambulance');
+
+        // Function to animate the ambulance between two points
+        function animateAmbulance(startX, endX) {
+          // Make the ambulance visible
+          ambulance.classList.add('active');
+
+          // Make flames visible
+          const flames = document.getElementById('rocket-flames');
+          flames.classList.add('active');
+
+          // Position the ambulance at the starting point
+          ambulance.style.left = `${startX}px`;
+
+          // Position flames behind ambulance
+          flames.style.left = `${startX - 60}px`;
+
+          // Determine direction
+          const goingRight = endX > startX;
+
+          // Flip the ambulance if it's going left
+          if (!goingRight) {
             ambulance.style.transform = 'translateY(-100px) scaleX(-1)';
             flames.style.transform = 'translateY(-65px) scaleX(-1)';
-        } else {
+          } else {
             ambulance.style.transform = 'translateY(-100px)';
             flames.style.transform = 'translateY(-65px)';
-        }
-        
-        // Calculate animation duration based on distance
-        const distance = Math.abs(endX - startX);
-        const duration = Math.min(Math.max(distance / 500, 2), 10); // Between 2 and 10 seconds
-        
-        // Animate ambulance
-        ambulance.style.transition = `left ${duration}s ease, opacity 0.5s ease`;
-        
-        // Animate flames with same duration
-        flames.style.transition = `left ${duration}s ease, opacity 0.5s ease`;
-        
-        // Start the animation after a short delay
-        setTimeout(() => {
+          }
+
+          // Calculate animation duration based on distance
+          const distance = Math.abs(endX - startX);
+          const duration = Math.min(Math.max(distance / 500, 2), 10); // Between 2 and 10 seconds
+
+          // Animate ambulance
+          ambulance.style.transition = `left ${duration}s ease, opacity 0.5s ease`;
+
+          // Animate flames with same duration
+          flames.style.transition = `left ${duration}s ease, opacity 0.5s ease`;
+
+          // Start the animation after a short delay
+          setTimeout(() => {
             ambulance.style.left = `${endX}px`;
             flames.style.left = `${endX - 60}px`;
-            
+
             // Hide the ambulance and flames after the animation is complete
             setTimeout(() => {
-                ambulance.classList.remove('active');
-                flames.classList.remove('active');
+              ambulance.classList.remove('active');
+              flames.classList.remove('active');
             }, duration * 1000);
-        }, 100);
-    }
-    
-    // Function to show a specific card
-    function showCard(id) {
-        hideAllCards();
-        
-        // If we have a previous point, animate the ambulance
-        if (lastClickedId !== null && lastClickedId !== id) {
+          }, 100);
+        }
+
+        // Function to show a specific card
+        function showCard(id) {
+          hideAllCards();
+
+          // If we have a previous point, animate the ambulance
+          if (lastClickedId !== null && lastClickedId !== id) {
             const startX = pointPositions[lastClickedId];
             const endX = pointPositions[id];
-            
+
             // Animate the ambulance from the last point to the current one
             animateAmbulance(startX, endX);
-        }
-        
-        // Update the last clicked point
-        lastClickedId = id;
-        
-        // Show the card after 2 second delay
-        setTimeout(() => {
+          }
+
+          // Update the last clicked point
+          lastClickedId = id;
+
+          // Show the card after 2 second delay
+          setTimeout(() => {
             const cardContainer = document.getElementById(id + '-card');
             if (cardContainer) {
-                // Make the container visible
-                cardContainer.classList.add('visible');
-                
-                // Position the card relative to the clicked point
-                const card = cardContainer.querySelector('.card');
-                if (card) {
-                    // Get the position for this point
-                    const pointPosition = pointPositions[id];
-                    const cardWidth = 2500; // Width of the card
-                    
-                    // Calculate the left position to center the card on the timeline point
-                    let leftPosition = pointPosition - (cardWidth / 2);
-                    
-                    // Ensure card is not positioned too far to the left or right
-                    leftPosition = Math.max(500, leftPosition);
-                    leftPosition = Math.min(7000, leftPosition);
-                    
-                    // Set the position
-                    card.style.left = `${leftPosition}px`;
-                    card.style.top = '100px'; // Fixed vertical position
-                }
+              // Make the container visible
+              cardContainer.classList.add('visible');
+
+              // Position the card relative to the clicked point
+              const card = cardContainer.querySelector('.card');
+              if (card) {
+                // Get the position for this point
+                const pointPosition = pointPositions[id];
+                const cardWidth = 2500; // Width of the card
+
+                // Calculate the left position to center the card on the timeline point
+                let leftPosition = pointPosition - cardWidth / 2;
+
+                // Ensure card is not positioned too far to the left or right
+                leftPosition = Math.max(500, leftPosition);
+                leftPosition = Math.min(7000, leftPosition);
+
+                // Set the position
+                card.style.left = `${leftPosition}px`;
+                card.style.top = '100px'; // Fixed vertical position
+              }
             }
-        }, 2000); // 2 second delay
-    }
-    
-    // Add click event listeners to timeline points
-    timelinePoints.forEach(point => {
-        point.addEventListener('click', function() {
+          }, 2000); // 2 second delay
+        }
+
+        // Add click event listeners to timeline points
+        timelinePoints.forEach(point => {
+          point.addEventListener('click', function () {
             // Play whoosh sound
             whooshSound.currentTime = 0; // Reset sound to beginning
             whooshSound.play();
-            
+
             const id = this.dataset.id;
             showCard(id);
+          });
         });
-    });
-    
-    // Add click event listeners to close buttons
-    closeButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
+
+        // Add click event listeners to close buttons
+        closeButtons.forEach(button => {
+          button.addEventListener('click', function (e) {
             // Stop propagation to prevent the event from bubbling up
             e.stopPropagation();
             const cardContainer = this.closest('.card-container');
             if (cardContainer) {
-                cardContainer.classList.remove('visible');
+              cardContainer.classList.remove('visible');
             } else {
-                hideAllCards();
+              hideAllCards();
             }
+          });
         });
-    });
-    
-    // Close card when clicking outside the card content
-    cardContainers.forEach(container => {
-        container.addEventListener('click', function(e) {
+
+        // Close card when clicking outside the card content
+        cardContainers.forEach(container => {
+          container.addEventListener('click', function (e) {
             if (e.target === this) {
-                hideAllCards();
+              hideAllCards();
             }
+          });
         });
-    });
-    
-    // Escape key to close cards
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
+
+        // Escape key to close cards
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') {
             hideAllCards();
-        }
-    });
-    
-    // Arrow keys for navigation
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'ArrowLeft') {
+          }
+        });
+
+        // Arrow keys for navigation
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'ArrowLeft') {
             window.scrollBy({ left: -500, behavior: 'smooth' });
-        } else if (e.key === 'ArrowRight') {
+          } else if (e.key === 'ArrowRight') {
             window.scrollBy({ left: 500, behavior: 'smooth' });
-        }
-    });
-});
-  </script>
-</body>
+          }
+        });
+      });
+    </script>
+  </body>
 </html>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Future Card -->
-    <div class="card-container" id="future-card">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">
-                    <h2>Evolution Unleashed</h2>
-                    <div class="system-badge esn">New ESN</div>
-                </div>
-                <div class="close-btn"></div>
-            </div>
-            <div class="card-content">
-                <div class="info-section system-details">
-                    <div class="section-title">
-                        <i>📊</i> System Capabilities
-                    </div>
-                    <p>ESN significantly reduces the total cost of ownership while providing a platform that will continuously evolve with new capabilities over time.</p>
-                    
-                    <div class="comparison-container">
-                        <div class="old-side">
-                            <div class="comparison-label">Airwave System</div>
-                            <div class="comparison-value">High device costs, expensive service charges, proprietary technology with limited upgrade paths</div>
-                        </div>
-                        <div class="new-side">
-                            <div class="comparison-label">ESN Solution</div>
-                            <div class="comparison-value">Competitive device market, shared infrastructure costs, continuous technological evolution aligned with commercial standards</div>
-                        </div>
-                    </div>
-                    
-                    <div class="benefit-tags">
-                        <div class="benefit-tag">Long-Term Savings</div>
-                        <div class="benefit-tag">Continuous Improvement</div>
-                        <div class="benefit-tag">Future-Proof Technology</div>
-                    </div>
-                    
-                    <div class="metrics-container">
-                        <div class="metric">
-                            <div class="metric-value">£200M+</div>
-                            <div class="metric-label">Annual Savings</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">£900+</div>
-                            <div class="metric-label">Per Device Cost</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">Continuous</div>
-                            <div class="metric-label">Technology Updates</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="info-section user-journey">
-                    <div class="section-title">
-                        <i>👤</i> Alex's Experience
-                    </div>
-                    
-                    <div class="user-story">
-                        <p>After treating the patient using guidance from the ESN-connected physician, Alex prepares to transport them to the hospital. Using the ESN device, Alex transmits the patient's complete vital signs, treatment information, and images to the emergency department. The hospital staff prepare exactly what's needed before arrival. Alex's ambulance trust has been able to equip all staff with ESN devices due to the significant cost savings compared to Airwave. The multipurpose ESN device replaces several separate devices Alex previously carried. Last month, a software update added new functionality to Alex's device without requiring any hardware changes, including enhanced location tracking inside buildings and integration with the hospital's patient management system.</p>
-                    </div>
-                    
-                    <div class="media-section">
-                        <div class="section-title">
-                            <i>🎬</i> Experience Visualization
-                        </div>
-                        <div class="media-placeholder">
-                            [Interactive future capabilities demonstration]
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Collaboration Card -->
-    <div class="card-container" id="collab-card">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">
-                    <h2>Unified Response</h2>
-                    <div class="system-badge esn">New ESN</div>
-                </div>
-                <div class="close-btn"></div>
-            </div>
-            <div class="card-content">
-                <div class="info-section system-details">
-                    <div class="section-title">
-                        <i>📊</i> System Capabilities
-                    </div>
-                    <p>ESN enables unprecedented interoperability between emergency services and partner agencies, breaking down communication barriers during complex incidents.</p>
-                    
-                    <div class="comparison-container">
-                        <div class="old-side">
-                            <div class="comparison-label">Airwave System</div>
-                            <div class="comparison-value">Pre-configured talk groups, manual patching between agencies, incompatible with non-Airwave users</div>
-                        </div>
-                        <div class="new-side">
-                            <div class="comparison-label">ESN Solution</div>
-                            <div class="comparison-value">Dynamic group creation, seamless cross-agency communication, integration with standard mobile devices, cross-border capabilities</div>
-                        </div>
-                    </div>
-                    
-                    <div class="benefit-tags">
-                        <div class="benefit-tag">Instant Coordination</div>
-                        <div class="benefit-tag">Unified Communication</div>
-                        <div class="benefit-tag">Wider Collaboration</div>
-                    </div>
-                    
-                    <div class="metrics-container">
-                        <div class="metric">
-                            <div class="metric-value">Minutes</div>
-                            <div class="metric-label">Multi-Agency Setup</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">Unlimited</div>
-                            <div class="metric-label">Agency Integration</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">Seamless</div>
-                            <div class="metric-label">Cross-Border Operations</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="info-section user-journey">
-                    <div class="section-title">
-                        <i>👤</i> Alex's Experience
-                    </div>
-                    
-                    <div class="user-story">
-                        <p>The chemical spill incident now requires coordination with fire services and hazmat teams. Using ESN, Alex is immediately added to a dynamic incident talk group that includes all responding agencies. The control room creates this group in seconds, with no delay in establishing communications. When the volunteer doctor arrives, they can join the ESN group using their standard smartphone with the ESN app. The doctor reviews the patient's vital signs remotely and provides direct guidance to Alex through video call while still en route. Alex shares photos of the chemical containers with the hazmat team, who immediately identify the substance and send proper treatment protocols directly to Alex's device.</p>
-                    </div>
-                    
-                    <div class="media-section">
-                        <div class="section-title">
-                            <i>🎬</i> Experience Visualization
-                        </div>
-                        <div class="media-placeholder">
-                            [Interactive multi-agency coordination visualization]
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Resilience Card -->
-    <div class="card-container" id="resilience-card">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">
-                    <h2>Always Connected</h2>
-                    <div class="system-badge esn">New ESN</div>
-                </div>
-                <div class="close-btn"></div>
-            </div>
-            <div class="card-content">
-                <div class="info-section system-details">
-                    <div class="section-title">
-                        <i>📊</i> System Capabilities
-                    </div>
-                    <p>ESN leverages commercial 4G networks enhanced with dedicated coverage solutions to provide comprehensive service even in challenging environments.</p>
-                    
-                    <div class="comparison-container">
-                        <div class="old-side">
-                            <div class="comparison-label">Airwave System</div>
-                            <div class="comparison-value">Fixed infrastructure with predetermined coverage areas and limited in-building penetration</div>
-                        </div>
-                        <div class="new-side">
-                            <div class="comparison-label">ESN Solution</div>
-                            <div class="comparison-value">Continuously expanding 4G/5G coverage, deployable mobile coverage units, enhanced building penetration, satellite backup options</div>
-                        </div>
-                    </div>
-                    
-                    <div class="benefit-tags">
-                        <div class="benefit-tag">Extended Reach</div>
-                        <div class="benefit-tag">Flexible Coverage</div>
-                        <div class="benefit-tag">Multiple Redundancies</div>
-                    </div>
-                    
-                    <div class="metrics-container">
-                        <div class="metric">
-                            <div class="metric-value">99%+</div>
-                            <div class="metric-label">Population Coverage</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">97%</div>
-                            <div class="metric-label">Geographic Coverage</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">Enhanced</div>
-                            <div class="metric-label">Indoor Penetration</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="info-section user-journey">
-                    <div class="section-title">
-                        <i>👤</i> Alex's Experience
-                    </div>
-                    
-                    <div class="user-story">
-                        <p>Traveling to the accident site with ESN, Alex maintains consistent communication throughout the rural journey. The commercial network coverage has been enhanced with dedicated ESN sites in rural areas. Upon arriving at the remote farm, Alex discovers the incident is inside a large metal barn, but the ESN device automatically switches to a vehicle-mounted gateway that boosts the signal. Inside the barn, Alex maintains full contact with the control room, sharing regular updates about the patient without interruption. When the control room needs to share critical information about hazardous materials, the message gets through clearly.</p>
-                    </div>
-                    
-                    <div class="media-section">
-                        <div class="section-title">
-                            <i>🎬</i> Experience Visualization
-                        </div>
-                        <div class="media-placeholder">
-                            [Interactive coverage comparison map]
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Data Card -->
-    <div class="card-container" id="data-card">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">
-                    <h2>Data in Motion</h2>
-                    <div class="system-badge esn">New ESN</div>
-                </div>
-                <div class="close-btn"></div>
-            </div>
-            <div class="card-content">
-                <div class="info-section system-details">
-                    <div class="section-title">
-                        <i>📊</i> System Capabilities
-                    </div>
-                    <p>ESN provides high-speed data services that enable emergency responders to access critical information in the field and share rich media in real-time.</p>
-                    
-                    <div class="comparison-container">
-                        <div class="old-side">
-                            <div class="comparison-label">Airwave System</div>
-                            <div class="comparison-value">Text-only status messages, basic GPS location, no multimedia support</div>
-                        </div>
-                        <div class="new-side">
-                            <div class="comparison-label">ESN Solution</div>
-                            <div class="comparison-value">Live video streaming, high-resolution images, real-time location tracking, access to operational databases and applications</div>
-                        </div>
-                    </div>
-                    
-                    <div class="benefit-tags">
-                        <div class="benefit-tag">Real-Time Intelligence</div>
-                        <div class="benefit-tag">Rich Media Sharing</div>
-                        <div class="benefit-tag">Operational Efficiency</div>
-                    </div>
-                    
-                    <div class="metrics-container">
-                        <div class="metric">
-                            <div class="metric-value">100+ Mbps</div>
-                            <div class="metric-label">Data Speed</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">HD Video</div>
-                            <div class="metric-label">Streaming Quality</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">Full</div>
-                            <div class="metric-label">App Integration</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="info-section user-journey">
-                    <div class="section-title">
-                        <i>👤</i> Alex's Experience
-                    </div>
-                    
-                    <div class="user-story">
-                        <p>Alex, now using ESN, receives an emergency call about a serious accident. Before arriving, dispatch sends photos of the scene and a short video from a bystander, giving Alex a clear understanding of the situation. The control room shares the patient's medical history directly to Alex's device. En route, Alex views live footage from a police helicopter overhead, helping identify the safest approach route. Alex can prepare specifically for what they'll encounter, arriving better equipped and mentally prepared for the emergency.</p>
-                    </div>
-                    
-                    <div class="media-section">
-                        <div class="section-title">
-                            <i>🎬</i> Experience Visualization
-                        </div>
-                        <div class="media-placeholder">
-                            [Interactive data capabilities demonstration]
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Cost Card -->
-    <div class="card-container" id="cost-card">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">
-                    <h2>Budget Barriers</h2>
-                    <div class="system-badge airwave">Legacy Airwave</div>
-                </div>
-                <div class="close-btn"></div>
-            </div>
-            <div class="card-content">
-                <div class="info-section system-details">
-                    <div class="section-title">
-                        <i>📊</i> System Limitations
-                    </div>
-                    <p>The Airwave service has high operational costs with limited potential for technological evolution, creating a financial burden and capability ceiling for emergency services.</p>
-                    
-                    <div class="comparison-container">
-                        <div class="old-side">
-                            <div class="comparison-label">Airwave System</div>
-                            <div class="comparison-value">Proprietary technology with expensive end-of-life equipment, high service charges, and minimal innovation potential</div>
-                        </div>
-                        <div class="new-side">
-                            <div class="comparison-label">ESN Solution</div>
-                            <div class="comparison-value">Commercial mobile technology leveraging economies of scale, competitive device market, and continuous technology evolution</div>
-                        </div>
-                    </div>
-                    
-                    <div class="benefit-tags">
-                        <div class="benefit-tag">End-of-Life Technology</div>
-                        <div class="benefit-tag">High Service Charges</div>
-                        <div class="benefit-tag">Limited Innovation</div>
-                    </div>
-                    
-                    <div class="metrics-container">
-                        <div class="metric">
-                            <div class="metric-value">£370M</div>
-                            <div class="metric-label">Annual Cost</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">£3,500+</div>
-                            <div class="metric-label">Per Device Cost</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">Minimal</div>
-                            <div class="metric-label">Future Capabilities</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="info-section user-journey">
-                    <div class="section-title">
-                        <i>👤</i> Alex's Experience
-                    </div>
-                    
-                    <div class="user-story">
-                        <p>After treating the patient, Alex needs to transfer them to the hospital. Alex wants to send patient vitals ahead to the emergency department but can't transmit this data through Airwave. The ambulance trust can't afford to upgrade their equipment due to the high costs of Airwave devices and service charges. Alex's Airwave handset is bulky and only serves a single purpose, requiring them to carry multiple devices for different functions. The trust has been told that no new features will be added to the Airwave system, as it's approaching end-of-life.</p>
-                    </div>
-                    
-                    <div class="media-section">
-                        <div class="section-title">
-                            <i>🎬</i> Experience Visualization
-                        </div>
-                        <div class="media-placeholder">
-                            [Interactive cost comparison visualization]
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Interoperability Card -->
-    <div class="card-container" id="interop-card">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">
-                    <h2>Broken Bridges</h2>
-                    <div class="system-badge airwave">Legacy Airwave</div>
-                </div>
-                <div class="close-btn"></div>
-            </div>
-            <div class="card-content">
-                <div class="info-section system-details">
-                    <div class="section-title">
-                        <i>📊</i> System Limitations
-                    </div>
-                    <p>Airwave offers limited interoperability between different emergency services and external agencies, creating communication silos during multi-agency incidents.</p>
-                    
-                    <div class="comparison-container">
-                        <div class="old-side">
-                            <div class="comparison-label">Airwave System</div>
-                            <div class="comparison-value">Separate talk groups with manual configuration required for cross-agency communication, limited to agencies with Airwave terminals</div>
-                        </div>
-                        <div class="new-side">
-                            <div class="comparison-label">ESN Solution</div>
-                            <div class="comparison-value">Seamless multi-agency operations with dynamic talk groups, interoperability with standard mobile devices, and easy integration with partner agencies</div>
-                        </div>
-                    </div>
-                    
-                    <div class="benefit-tags">
-                        <div class="benefit-tag">Siloed Communication</div>
-                        <div class="benefit-tag">Manual Configuration</div>
-                        <div class="benefit-tag">Agency Barriers</div>
-                    </div>
-                    
-                    <div class="metrics-container">
-                        <div class="metric">
-                            <div class="metric-value">Hours</div>
-                            <div class="metric-label">Setup Time for Joint Ops</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">Limited</div>
-                            <div class="metric-label">External Agency Access</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">Manual</div>
-                            <div class="metric-label">Cross-Border Coordination</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="info-section user-journey">
-                    <div class="section-title">
-                        <i>👤</i> Alex's Experience
-                    </div>
-                    
-                    <div class="user-story">
-                        <p>The accident involves a chemical spill, requiring fire services and specialized hazmat teams. Alex needs to coordinate with these units, but their Airwave systems are configured on different talk groups. The control room must manually patch these groups together, causing a 20-minute delay in establishing joint communications. When a volunteer doctor arrives to assist, they can't communicate directly with Alex because they don't have an Airwave terminal. Alex must relay all medical information verbally and can't receive direct guidance from the specialized physician.</p>
-                    </div>
-                    
-                    <div class="media-section">
-                        <div class="section-title">
-                            <i>🎬</i> Experience Visualization
-                        </div>
-                        <div class="media-placeholder">
-                            [Interactive visualization of siloed communications]
-                        </div>
-                    </div>
-                </div>
-                <div class="esn-name">Emergency<br>Services Network</div>
-            </div>
-            <div class="synergy-logo">
-                <div class="synergy-circle synergy-black"></div>
-                <div class="synergy-circle synergy-green"></div>
-                <div class="synergy-circle synergy-blue"></div>
-                <div class="synergy-circle synergy-purple"></div>
-            </div>
-        </div>
-        
-        <div class="title-container">
-            <h1>The Intergalactic Evolution of Emergency Communications</h1>
-            <p class="subtitle">A Voyage through space from Airwave to ESN: Transforming First Responder Technology</p>
-        </div>
-        
-        <div style="width: 200px;"></div> <!-- Spacer for alignment -->
-    </header>
-    
-    <!-- Main timeline container -->
-    <div class="main-container">
-        <!-- Background stars -->
-        <div class="stars" id="stars-container"></div>
-        
-        <!-- Timeline -->
-        <div class="timeline-container">
-            <div class="timeline">
-                <div class="divider"></div>
-                
-                <!-- Legacy Airwave points -->
-                <div class="timeline-point old-process point-voice" data-id="voice">
-                    <div class="point-icon">📞</div>
-                    <div class="point-label">Reaching for Help</div>
-                </div>
-                
-                <div class="timeline-point old-process point-coverage" data-id="coverage">
-                    <div class="point-icon">📡</div>
-                    <div class="point-label">Signal Lost</div>
-                </div>
-                
-                <div class="timeline-point old-process point-interop" data-id="interop">
-                    <div class="point-icon">💔</div>
-                    <div class="point-label">Broken Bridges</div>
-                </div>
-                
-                <div class="timeline-point old-process point-cost" data-id="cost">
-                    <div class="point-icon">💰</div>
-                    <div class="point-label">Budget Barriers</div>
-                </div>
-                
-                <!-- New ESN points -->
-                <div class="timeline-point new-process point-data" data-id="data">
-                    <div class="point-icon">📱</div>
-                    <div class="point-label">Data in Motion</div>
-                </div>
-                
-                <div class="timeline-point new-process point-resilience" data-id="resilience">
-                    <div class="point-icon">🛜</div>
-                    <div class="point-label">Always Connected</div>
-                </div>
-                
-                <div class="timeline-point new-process point-collab" data-id="collab">
-                    <div class="point-icon">🤝</div>
-                    <div class="point-label">Unified Response</div>
-                </div>
-                
-                <div class="timeline-point new-process point-future" data-id="future">
-                    <div class="point-icon">🚀</div>
-                    <div class="point-label">Evolution Unleashed</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Cards for each point -->
-    <!-- Voice Card -->
-    <div class="card-container" id="voice-card">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">
-                    <h2>Reaching for Help</h2>
-                    <div class="system-badge airwave">Legacy Airwave</div>
-                </div>
-                <div class="close-btn"></div>
-            </div>
-            <div class="card-content">
-                <div class="info-section system-details">
-                    <div class="section-title">
-                        <i>📊</i> System Limitations
-                    </div>
-                    <p>The legacy Airwave system primarily supports voice communication with limited data capabilities, constraining operational efficiency and situational awareness.</p>
-                    
-                    <div class="comparison-container">
-                        <div class="old-side">
-                            <div class="comparison-label">Airwave System</div>
-                            <div class="comparison-value">Push-to-talk radio communication with basic status messaging and limited data transfer rates (up to 28.8 kbps)</div>
-                        </div>
-                        <div class="new-side">
-                            <div class="comparison-label">ESN Solution</div>
-                            <div class="comparison-value">Integrated voice with high-speed data transfer (4G/5G) supporting real-time video, images, and location sharing</div>
-                        </div>
-                    </div>
-                    
-                    <div class="benefit-tags">
-                        <div class="benefit-tag">Voice-Centric</div>
-                        <div class="benefit-tag">Limited Bandwidth</div>
-                        <div class="benefit-tag">Restricted Functionality</div>
-                    </div>
-                    
-                    <div class="metrics-container">
-                        <div class="metric">
-                            <div class="metric-value">28.8</div>
-                            <div class="metric-label">Max kbps Data Rate</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">Voice</div>
-                            <div class="metric-label">Primary Function</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">0</div>
-                            <div class="metric-label">Video Capability</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="info-section user-journey">
-                    <div class="section-title">
-                        <i>👤</i> Alex's Experience
-                    </div>
-                    
-                    <div class="user-story">
-                        <p>Alex, a paramedic, receives an emergency call about a serious accident. Using Airwave, Alex can only receive basic information via voice. When asking for more details about the patient's condition, the dispatcher can only relay verbal descriptions. Alex must imagine the scene based on limited information and prepare accordingly, potentially missing critical details.</p>
-                    </div>
-                    
-                    <div class="media-section">
-                        <div class="section-title">
-                            <i>🎬</i> Experience Visualization
-                        </div>
-                        <div class="media-placeholder">
-                            [Interactive visualization of communication limitations]
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Coverage Card -->
-    <div class="card-container" id="coverage-card">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">
-                    <h2>Signal Lost</h2>
-                    <div class="system-badge airwave">Legacy Airwave</div>
-                </div>
-                <div class="close-btn"></div>
-            </div>
-            <div class="card-content">
-                <div class="info-section system-details">
-                    <div class="section-title">
-                        <i>📊</i> System Limitations
-                    </div>
-                    <p>Airwave provides dedicated coverage but has gaps in rural areas and inside buildings. The system's infrastructure is aging and increasingly difficult to maintain.</p>
-                    
-                    <div class="comparison-container">
-                        <div class="old-side">
-                            <div class="comparison-label">Airwave System</div>
-                            <div class="comparison-value">Purpose-built network with static coverage maps and limited flexibility for expansion or improvement</div>
-                        </div>
-                        <div class="new-side">
-                            <div class="comparison-label">ESN Solution</div>
-                            <div class="comparison-value">Leverages commercial mobile networks with continuous improvements, dedicated coverage vehicles, and additional solutions for challenging environments</div>
-                        </div>
-                    </div>
-                    
-                    <div class="benefit-tags">
-                        <div class="benefit-tag">Coverage Gaps</div>
-                        <div class="benefit-tag">Static Infrastructure</div>
-                        <div class="benefit-tag">Limited Redundancy</div>
-                    </div>
-                    
-                    <div class="metrics-container">
-                        <div class="metric">
-                            <div class="metric-value">97%</div>
-                            <div class="metric-label">Population Coverage</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">70%</div>
-                            <div class="metric-label">Rural Coverage</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">Limited</div>
-                            <div class="metric-label">Indoor Penetration</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="info-section user-journey">
-                    <div class="section-title">
-                        <i>👤</i> Alex's Experience
-                    </div>
-                    
-                    <div class="user-story">
-                        <p>En route to the accident scene, Alex travels through a rural area with patchy Airwave coverage. The communication drops several times, causing Alex to miss important updates from dispatch. When arriving at a remote farm, Alex discovers the incident is inside a large metal barn where radio signal barely penetrates. Communication with the control room becomes intermittent, forcing Alex to step outside repeatedly to provide updates on the patient's condition.</p>
-                    </div>
-                    
-                    <div class="media-section">
-                        <div class="section-title">
-                            <i>🎬</i> Experience Visualization
-                        </div>
-                        <div class="media-placeholder">
-                            [Interactive coverage map showing signal loss areas]
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-            

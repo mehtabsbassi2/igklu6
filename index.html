@@ -1545,6 +1545,35 @@
     <!-- JavaScript for interactions -->
     <script>
       document.addEventListener('DOMContentLoaded', () => {
+        let audioEnabled = false;
+
+        // This function will enable all audio on first user interaction
+        const enableAudio = () => {
+          if (!audioEnabled) {
+            audioEnabled = true;
+            document.body.classList.add('audio-enabled');
+
+            // Try to play background music
+            if (backgroundMusic && backgroundMusic.paused) {
+              backgroundMusic
+                .play()
+                .catch(e => console.log('Audio play error:', e));
+            }
+
+            // Remove these event listeners once audio is enabled
+            document.removeEventListener('click', enableAudio);
+            document.removeEventListener('keydown', enableAudio);
+            document.removeEventListener('touchstart', enableAudio);
+
+            console.log('Audio enabled by user interaction');
+          }
+        };
+
+        // Add event listeners for common user interactions
+        document.addEventListener('click', enableAudio);
+        document.addEventListener('keydown', enableAudio);
+        document.addEventListener('touchstart', enableAudio);
+
         // Create stars for background
         const starsContainer = document.getElementById('stars-container');
         for (let i = 0; i < 500; i++) {
@@ -1573,15 +1602,11 @@
         // Auto-play functionality with user interaction requirement
         // Many browsers require user interaction before playing audio
         const playBackgroundMusic = () => {
-          backgroundMusic.play().catch(error => {
-            console.log(
-              'Auto-play was prevented. Waiting for user interaction.'
-            );
-          });
-
-          // Remove the event listeners once played
-          document.removeEventListener('click', playBackgroundMusic);
-          document.removeEventListener('keydown', playBackgroundMusic);
+          if (audioEnabled) {
+            backgroundMusic.play().catch(error => {
+              console.error('Background music error:', error);
+            });
+          }
         };
 
         // Try to play immediately (might be blocked by browser)
@@ -1751,14 +1776,18 @@
           }, 2000); // 2 second delay
         }
 
-        // Add click event listeners to timeline points
         timelinePoints.forEach(point => {
           point.addEventListener('click', function () {
-            // Play whoosh sound
-            whooshSound.currentTime = 0; // Reset sound to beginning
-            whooshSound.play();
-
             const id = this.dataset.id;
+
+            // Only play sound if audio is enabled
+            if (audioEnabled) {
+              whooshSound.currentTime = 0; // Reset sound to beginning
+              whooshSound.play().catch(error => {
+                console.error('Whoosh sound error:', error);
+              });
+            }
+
             showCard(id);
           });
         });
